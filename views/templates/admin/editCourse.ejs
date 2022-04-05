@@ -1,0 +1,51 @@
+<form
+  action="/admin/courses/<%=getCourse._id%>?_method=PUT"
+  ,
+  method="POST"
+>
+  <label for="level">Category: </label>
+  <select type="text" id="category" name="category">
+    <% for (let crs of categories) {%>
+        <option value="<%= crs %>" <%= getCourse.category === crs ? "selected" : ""%>><%= crs%></option>
+    <%} %>
+  </select>
+
+  <label for="title">Course Name: </label>
+  <input type="text" id="title" name="title" value="<%= getCourse.title%>"/>
+
+  <label for="platform">Platform: </label>
+  <input type="text" id="platform" name="platform" value="<%= getCourse.platform%>"/>
+
+  <label for="price">Price:(Rupees)</label>
+  <select id="price" name="price">
+    <% for (let prc of price) {%>
+    <option value="<%= prc %>" <%= getCourse.price === prc ? "selected" : ""%>><%= prc%></option>
+    <%} %>
+  </select>
+
+  <label for="description">Course Description: </label>
+  <textarea
+    type="text"
+    id="description"
+    name="description"
+    rows="4"
+    cols="50"
+  ><%= getCourse.description%></textarea>
+
+  <label for="level">Level: </label>
+  <select type="text" id="level" name="level">
+    <% for (let Lvl of levels) {%>
+        <option value="<%= Lvl %>" <%= getCourse.level === Lvl ? "selected" : ""%>><%= Lvl%></option>
+    <%} %>
+  </select>
+
+  <label for="url">Course URL: </label>
+  <input type="text" id="url" name="url" value="<%= getCourse.url%>"/>
+
+  <label for="prequisites">Prerequisites: </label>
+  <textarea type="text" id="prequisites" name="prequisites"><%= getCourse.prequisites%></textarea>
+
+  <button>Submit</button>
+</form>
+
+<a href="/admin/courses/<%= getCourse._id%>">Cancel</a>

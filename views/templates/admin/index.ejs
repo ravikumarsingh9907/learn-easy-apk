@@ -1,0 +1,13 @@
+<h1>All Courses</h1>
+
+<div class="add-course-sec">
+  <a href="/admin/courses/add">Add Course</a>
+</div>
+
+<div class="all-course-list">
+  <% for (const c of courses) {%>
+  <a href="/admin/courses/<%=c._id%>"><%= c.title%></a>
+  <br />
+  <br />
+  <%} %>
+</div>

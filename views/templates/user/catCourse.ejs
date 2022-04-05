@@ -1,0 +1,8 @@
+<h2><%= showCourses.category%></h2>
+
+<ul>
+  <% for(let crs of showCourses) { %>
+  <li><%= crs.title %></li>
+  <a href="<%= crs.url%>">Go to the course</a>
+  <% }%>
+</ul>

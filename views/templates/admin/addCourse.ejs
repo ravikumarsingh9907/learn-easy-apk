@@ -1,0 +1,48 @@
+<form action="/admin/courses/add" , method="POST" enctype="multipart/form-data">
+  <label for="level">Category: </label>
+  <select type="text" id="category" name="category">
+    <% for (let crs of categories) {%>
+    <option value="<%= crs %>"><%= crs%></option>
+    <%} %>
+  </select>
+
+  <label for="title">Course Name: </label>
+  <input type="text" id="title" name="title" />
+
+  <label for="platform">Platform: </label>
+  <input type="text" id="platform" name="platform" />
+
+  <label for="price">Price:(Rupees)</label>
+  <select id="price" name="price">
+    <% for (let prc of price) {%>
+    <option value="<%= prc %>"><%= prc%></option>
+    <%} %>
+  </select>
+
+  <label for="description">Course Description: </label>
+  <textarea
+    type="text"
+    id="description"
+    name="description"
+    rows="4"
+    cols="50"
+  ></textarea>
+
+  <label for="level">Level: </label>
+  <select type="text" id="level" name="level">
+    <% for (let Lvl of levels) {%>
+    <option value="<%= Lvl %>"><%= Lvl%></option>
+    <%} %>
+  </select>
+
+  <label for="url">Course URL: </label>
+  <input type="text" id="url" name="url" />
+
+  <label for="prequisites">Prerequisites: </label>
+  <textarea type="text" id="prequisites" name="prequisites"></textarea>
+
+  <label for="image" class="img">Img:</label>
+  <input type="file" id="image" name="image" />
+
+  <button>Submit</button>
+</form>
