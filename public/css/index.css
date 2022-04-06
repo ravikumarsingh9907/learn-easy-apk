@@ -63,15 +63,6 @@ img {
   padding-bottom: 0.2rem;
   font-size: 16px;
 }
-/* .navbar_links .login {
-  border: 1.6px solid #439c80;
-  border-radius: 5px;
-  padding: .5rem;
-}
-.navbar_links .login:hover {
-  color: #fff;
-  background-color: #439c80;
-} */
 
 .navbar_links .nav_li:after {
   content: "";
@@ -122,28 +113,6 @@ span:hover {
   height: 100%;
   object-fit: cover;
 }
-/* End of header image */
-
-/* For logo images CSS */
-/* .head_img_bg {
-  position: relative;
-  height: 100%;
-}
-.head_img_bg img{
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.image_logo {
-  top: 18%;
-  left: 60%;
-  position: absolute;
-}
-.image_logo img {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-} */
 
 /* Header text */
 .header_image .header_text {
@@ -195,7 +164,6 @@ span:hover {
   width: 100%;
   text-align: center;
   padding: 2rem;
-  /* background-color: #FFD39A; */
 }
 
 /* Main Content */
@@ -261,7 +229,12 @@ span:hover {
 /* End of content block div */
 
 /* Separate view button */
-.item_button:hover {
+.item_button a {
+  text-decoration: blink;
+  color: white;
+}
+
+.item_button a:hover {
   background-color: #4eca90;
   transition: background-color 0.4s ease;
 }
@@ -287,60 +260,6 @@ span:hover {
   background: #4eca90;
   transition: all 0.4s ease;
 }
-/* End of separate button */
-
-/* Quotes div */
-/* .quote_div{
-  margin-bottom: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(186, 247, 158);
-  position: relative;
-}
-.quote_text {
-  padding: 4rem;
-  width: 100%;
-}
-figure {
-  background-color: #019367;
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  border-radius: 25px;
-  margin: 0 auto;
-}
-figcaption {
-  text-align: end;
-  padding-right: 1rem;
-  padding: 1rem;
-  font-size: 18px;
-}
-blockquote {
-  background-color: #333;
-  padding: 2rem;
-}
-blockquote p {
-  text-align: center;
-  font-size: 20px;
-  color: #023d33;
-}
-hr {
-  border: 1px solid rgb(1, 83, 26); 
-}
-.quote_img {
-  width: 80%;
-  height: 100%;
-  position: relative;
-}
-.quote_img  .q_img{
-  width: 50%;
-  border-radius: 50%;
-}
-.q_img img {
-  width: 100%;
-  height: 100%;
-} */
 
 /* Contact Us */
 .contact_div {

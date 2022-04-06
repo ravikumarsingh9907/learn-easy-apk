@@ -50,8 +50,8 @@ Router.post("/admin/courses/add", upload.single("image"), async (req, res) => {
   try {
     const addCourse = new course(req.body);
     addCourse.image = req.file.path;
-
     await addCourse.save();
+    req.flash("success", `Successfully added new course`);
     res.redirect("/admin/courses");
   } catch (err) {
     res.status(400).send("Something went wrong", err);
@@ -98,6 +98,7 @@ Router.delete("/admin/courses/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deletedId = await course.findByIdAndDelete(id);
+    req.flash("success", `Successfully Deleted course`);
     res.status(200).redirect("/admin/courses");
   } catch {
     res.status(500).send("Something went wrong");

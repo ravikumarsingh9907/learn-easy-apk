@@ -9,6 +9,8 @@ const path = require("path");
 const methodOverride = require("method-override");
 const adminRouter = require("./Routers/adminRouter");
 const userRouter = require("./Routers/userRouter");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const app = express();
 
@@ -20,6 +22,19 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+const secretKey = {
+  secret: "mynameisravikumarsingh",
+  resave: false,
+  saveUninitialized: true,
+};
+app.use(session(secretKey));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  next();
+});
 
 // Admin Router
 app.use(adminRouter);

@@ -114,3 +114,15 @@ h2 {
   color: grey;
   margin-bottom: 1rem;
 }
+
+/* Alert Section */
+
+.text-style {
+  width: 80%;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 600;
+  color: #00835c;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+}
