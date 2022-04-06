@@ -11,11 +11,11 @@ const courseSchema = new Schema({
     type: String,
     required: true,
   },
-  platform: {
+  type: {
     type: String,
     required: true,
   },
-  level: {
+  platform: {
     type: String,
     required: true,
   },
@@ -23,20 +23,21 @@ const courseSchema = new Schema({
     type: String,
     default: "Free",
   },
+  level: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     default: "Information Not Available",
   },
+  prerequisites: {
+    type: String,
+    required: true,
+  },
   url: {
     type: String,
     required: true,
-  },
-  prequisites: {
-    type: String,
-    required: true,
-  },
-  skills: {
-    type: String,
   },
   image: {
     type: String,

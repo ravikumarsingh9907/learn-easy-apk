@@ -1,51 +1,120 @@
-<form
-  action="/admin/courses/<%=getCourse._id%>?_method=PUT"
-  ,
-  method="POST"
->
-  <label for="level">Category: </label>
-  <select type="text" id="category" name="category">
-    <% for (let crs of categories) {%>
-        <option value="<%= crs %>" <%= getCourse.category === crs ? "selected" : ""%>><%= crs%></option>
-    <%} %>
-  </select>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Courses</title>
 
-  <label for="title">Course Name: </label>
-  <input type="text" id="title" name="title" value="<%= getCourse.title%>"/>
+    <!-- CSS link -->
+    <link rel="stylesheet" href="/css/addcourse.css" />
 
-  <label for="platform">Platform: </label>
-  <input type="text" id="platform" name="platform" value="<%= getCourse.platform%>"/>
+    <!-- Favicon icon link -->
+    <link rel="icon" type="image/png" href="/icons/title.png" />
 
-  <label for="price">Price:(Rupees)</label>
-  <select id="price" name="price">
-    <% for (let prc of price) {%>
-    <option value="<%= prc %>" <%= getCourse.price === prc ? "selected" : ""%>><%= prc%></option>
-    <%} %>
-  </select>
+    <!-- Google font link-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <!-- Navbar -->
+      <div class="navigation">
+        <div class="navbar_logo">
+          <a href="/admin/courses"
+            ><img src="/icons/LS_logo.png" class="icon1"
+          /></a>
+        </div>
+      </div>
+    </header>
 
-  <label for="description">Course Description: </label>
-  <textarea
-    type="text"
-    id="description"
-    name="description"
-    rows="4"
-    cols="50"
-  ><%= getCourse.description%></textarea>
+    <h2>Add Courses</h2>
 
-  <label for="level">Level: </label>
-  <select type="text" id="level" name="level">
-    <% for (let Lvl of levels) {%>
-        <option value="<%= Lvl %>" <%= getCourse.level === Lvl ? "selected" : ""%>><%= Lvl%></option>
-    <%} %>
-  </select>
-
-  <label for="url">Course URL: </label>
-  <input type="text" id="url" name="url" value="<%= getCourse.url%>"/>
-
-  <label for="prequisites">Prerequisites: </label>
-  <textarea type="text" id="prequisites" name="prequisites"><%= getCourse.prequisites%></textarea>
-
-  <button>Submit</button>
-</form>
-
-<a href="/admin/courses/<%= getCourse._id%>">Cancel</a>
+    <div class="form_div">
+      <!-- Admin form -->
+      <form
+        action="/admin/courses/add"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form_item">
+          <label for="category">Category</label>
+          <select name="category" id="category" name="category" required>
+            <option value="">Choose Category</option>
+            <% for (let crs of categories) {%>
+              <option value="<%= crs %>" <%= getCourse.category === crs ? "selected" : ""%>><%= crs%></option>
+            <%} %>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="course">Course</label>
+          <input type="text" id="course" name="title" required value="<%= getCourse.title%>" />
+        </div>
+        <div class="form_item">
+          <label for="type">Type</label>
+          <select name="type" id="type" required>
+            <option value="">Choose type</option>
+            <option value="article">Article</option>
+            <option value="video">Video</option>
+            <option value="articleandvideo">Article/Video</option>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="platform">Platform</label>
+          <input type="text" id="platform" name="platform" required value="<%= getCourse.platform%>"/>
+        </div>
+        <div class="form_item">
+          <label for="price">Availability: </label>
+          <select name="price" id="price" required>
+            <option value="">Choose Availability</option>
+            <% for (let prc of price) {%>
+              <option value="<%= prc %>" <%= getCourse.price === prc ? "selected" : ""%>><%= prc%></option>
+            <%} %>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="level">Level</label>
+          <select name="level" id="level" required>
+            <option value="">Choose level</option>
+            <% for (let Lvl of levels) {%>
+              <option value="<%= Lvl %>" <%= getCourse.level === Lvl ? "selected" : ""%>><%= Lvl%></option>
+            <%} %>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            rows="5"
+            cols="33"
+            placeholder="Write description..."
+            name="description"
+          ><%= getCourse.description%></textarea>
+        </div>
+        <div class="form_item">
+          <label for="prerequisite">Prerequisite</label>
+          <textarea
+            id="prerequisite"
+            rows="5"
+            cols="33"
+            placeholder="Write prerequisite..."
+            name="prerequisites"
+          ><%= getCourse.prerequisites%></textarea>
+        </div>
+        <div class="form_item">
+          <label for="url">Course URL: </label>
+          <input type="text" id="url" name="url" name="url" value="<%= getCourse.url%>"/>
+        </div>
+        <div class="form_item">
+          <input type="file" accept="image/*" class="file" name="image" />
+        </div>
+        <div class="form_item" id="button">
+          <button type="submit">Add</button>
+          <button type="submit"><a href="/admin/courses">Cancel</a></button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,4 +1,125 @@
-<form action="/admin/courses/add" , method="POST" enctype="multipart/form-data">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Courses</title>
+
+    <!-- CSS link -->
+    <link rel="stylesheet" href="/css/addcourse.css" />
+
+    <!-- Favicon icon link -->
+    <link rel="icon" type="image/png" href="/icons/title.png" />
+
+    <!-- Google font link-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <!-- Navbar -->
+      <div class="navigation">
+        <div class="navbar_logo">
+          <a href="/admin/courses"
+            ><img src="/icons/LS_logo.png" class="icon1"
+          /></a>
+        </div>
+      </div>
+    </header>
+
+    <h2>Add Courses</h2>
+
+    <div class="form_div">
+      <!-- Admin form -->
+      <form
+        action="/admin/courses/add"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form_item">
+          <label for="category">Category</label>
+          <select name="category" id="category" name="category" required>
+            <option value="">Choose Category</option>
+            <% for (let crs of categories) {%>
+            <option value="<%= crs %>"><%= crs%></option>
+            <%} %>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="course">Course</label>
+          <input type="text" id="course" name="title" required />
+        </div>
+        <div class="form_item">
+          <label for="type">Type</label>
+          <select name="type" id="type" required>
+            <option value="">Choose type</option>
+            <option value="article">Article</option>
+            <option value="video">Video</option>
+            <option value="articleandvideo">Article/Video</option>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="platform">Platform</label>
+          <input type="text" id="platform" name="platform" required />
+        </div>
+        <div class="form_item">
+          <label for="price">Availability: </label>
+          <select name="price" id="price" required>
+            <option value="">Choose Availability</option>
+            <% for (let prc of price) {%>
+            <option value="<%= prc %>"><%= prc%></option>
+            <%} %>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="level">Level</label>
+          <select name="level" id="level" required>
+            <option value="">Choose level</option>
+            <% for (let Lvl of levels) {%>
+            <option value="<%= Lvl %>"><%= Lvl%></option>
+            <%} %>
+          </select>
+        </div>
+        <div class="form_item">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            rows="5"
+            cols="33"
+            placeholder="Write description..."
+            name="description"
+          ></textarea>
+        </div>
+        <div class="form_item">
+          <label for="prerequisite">Prerequisite</label>
+          <textarea
+            id="prerequisite"
+            rows="5"
+            cols="33"
+            placeholder="Write prerequisite..."
+            name="prerequisites"
+          ></textarea>
+        </div>
+        <div class="form_item">
+          <label for="url">Course URL: </label>
+          <input type="text" id="url" name="url" name="url" />
+        </div>
+        <div class="form_item">
+          <input type="file" accept="image/*" class="file" name="image" />
+        </div>
+        <div class="form_item" id="button">
+          <button type="submit">Add</button>
+          <button type="submit"><a href="/admin/courses">Cancel</a></button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+
+<!-- <form action="/admin/courses/add" method="POST" enctype="multipart/form-data">
   <label for="level">Category: </label>
   <select type="text" id="category" name="category">
     <% for (let crs of categories) {%>
@@ -45,4 +166,4 @@
   <input type="file" id="image" name="image" />
 
   <button>Submit</button>
-</form>
+</form> -->
