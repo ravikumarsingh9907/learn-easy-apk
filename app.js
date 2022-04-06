@@ -8,6 +8,7 @@ const course = require("./models/courses");
 const path = require("path");
 const methodOverride = require("method-override");
 const adminRouter = require("./Routers/adminRouter");
+const userRouter = require("./Routers/userRouter");
 
 const app = express();
 
@@ -22,27 +23,7 @@ app.use(methodOverride("_method"));
 
 // Admin Router
 app.use(adminRouter);
-
-app.get("/", async (req, res) => {
-  res.render("templates/user/index");
-});
-
-// Category wise page
-app.get("/courses/:category", async (req, res) => {
-  try {
-    const category = req.params.category;
-    const showCourses = await course.find({ category });
-    res.status(200).render("templates/user/catCourse", { showCourses });
-  } catch {
-    console.log("Something went wrong");
-  }
-});
-
-app.get("/course/:id", async (req, res) => {
-  const id = req.params;
-  const getCourse = await course.findById(id);
-  res.render("getcourse", { getCourse });
-});
+app.use(userRouter);
 
 // Listening to port
 app.listen(3000, () => {
