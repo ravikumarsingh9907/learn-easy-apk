@@ -28,7 +28,10 @@ const categories = [
 const levels = ["Begginer", "Intermediate", "Advanced"];
 
 // Price
-const price = ["FREE", "PAID", "FREE/PAID"];
+const price = ["Free", "Paid", "Free/Paid"];
+
+// Types
+const types = ["Article", "Video", "Article/Video"];
 
 const loginRequired = (req, res, next) => {
   if (!req.session.user_id) {
@@ -113,7 +116,7 @@ Router.post("/admin/courses/add", upload.single("image"), async (req, res) => {
     addCourse.image = req.file.path;
     await addCourse.save();
     req.flash("success", `Successfully added new course`);
-    res.redirect("/admin/courses");
+    res.status(200).redirect("/admin/courses");
   } catch (err) {
     res.status(400).send("Something went wrong", err);
   }
@@ -130,11 +133,14 @@ Router.get("/admin/courses/:id", loginRequired, async (req, res) => {
   }
 });
 
-Router.put("/admin/courses/:id", async (req, res) => {
+Router.put("/admin/courses/:id", upload.single("image"), async (req, res) => {
   try {
     const { id } = req.params;
     const getCourse = await course.findByIdAndUpdate(id, req.body);
-    res.status(200).render("templates/admin/course", { getCourse });
+    getCourse.image = req.file.path;
+    await getCourse.save();
+    req.flash("success", `Successfully updated your course`);
+    res.status(200).redirect("/admin/courses");
   } catch {
     res.status(400).render("Something went wrong");
   }
@@ -149,6 +155,7 @@ Router.get("/admin/courses/:id/edit", loginRequired, async (req, res) => {
       categories,
       levels,
       price,
+      types,
     });
   } catch {
     res.status(400).render("Something went wrong");

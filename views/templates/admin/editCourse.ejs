@@ -35,7 +35,7 @@
     <div class="form_div">
       <!-- Admin form -->
       <form
-        action="/admin/courses/add"
+        action="/admin/courses/<%=getCourse._id%>?_method=PUT"
         method="POST"
         enctype="multipart/form-data"
       >
@@ -56,9 +56,9 @@
           <label for="type">Type</label>
           <select name="type" id="type" required>
             <option value="">Choose type</option>
-            <option value="article">Article</option>
-            <option value="video">Video</option>
-            <option value="articleandvideo">Article/Video</option>
+            <% for (let ty of types) {%>
+              <option value="<%= ty %>" <%= getCourse.type === ty ? "selected" : ""%>><%= ty%></option>
+            <%} %>
           </select>
         </div>
         <div class="form_item">
