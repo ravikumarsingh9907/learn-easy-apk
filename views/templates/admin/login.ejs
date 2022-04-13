@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
 
     <!-- Favicon icon link -->
-    <link rel = "icon" type="image/png" href = "/icons/title.png">
+    <link rel="icon" type="image/png" href="/icons/title.png" />
 
     <!-- CSS link -->
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/login.css" />
 
     <!-- Google fonts link -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Fontawesome cdn -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+  </head>
+  <body>
     <div class="login_div">
-        <div class="wrapper">
-            <h3>Login</h3>
-            <form class="login" action="/admin/login" method="POST">
-                <div class="input_container">
-                    <i class="fa fa-envelope icon"></i>
-                    <input class="input-field" type="email" placeholder="Email" name="email" required />
-                </div>
-                <div class="input_container" id="passfield">
-                    <div class="input_pass">
-                        <i class="fa fa-key icon"></i>
-                        <input class="input-field" id="password" type="password" placeholder="Password" name="password" maximum=14, required /> 
-                        <i class="fa-solid fa-eye" id="password_eye"></i>
-                    </div>
-                    <div class="forgot">
-                        <a href="#">Forgot Password?</a>
-                    </div>
-                </div>
-                <button class="submit_btn">Log In</button>
-                <div class="user">
-                    <p>New User?<a href="/admin/signup">Create Account</p>
-                </div>
-            </form>
-        </div>
+      <div class="wrapper">
+        <h3>Login</h3>
+        <form class="login" action="/admin/login" method="POST">
+          <div class="input_container">
+            <i class="fa fa-envelope icon"></i>
+            <input
+              class="input-field"
+              type="email"
+              placeholder="Email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="input_container" id="passfield">
+            <div class="input_pass">
+              <i class="fa fa-key icon"></i>
+              <input
+                class="input-field"
+                id="password"
+                type="password"
+                placeholder="Password"
+                name="password"
+                maximum="14,"
+                required
+              />
+              <i class="fa-solid fa-eye" id="password_eye"></i>
+            </div>
+            <div class="forgot">
+              <a href="#">Forgot Password?</a>
+            </div>
+          </div>
+          <button class="submit_btn">Log In</button>
+        </form>
+      </div>
     </div>
 
-     <!-- Javascript link -->
-     <script src="js/login.js"></script>
-
-</body>
+    <!-- Javascript link -->
+    <script src="js/login.js"></script>
+  </body>
 </html>

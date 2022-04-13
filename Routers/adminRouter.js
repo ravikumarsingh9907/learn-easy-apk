@@ -40,6 +40,13 @@ const loginRequired = (req, res, next) => {
   next();
 };
 
+Router.get("/admin", (req, res) => {
+  if (!req.session.user_id) {
+    return res.status(200).redirect("/admin/login");
+  }
+  res.status(500).redirect("/admin/courses");
+});
+
 // Admin Login Authentication
 Router.get("/admin/login", (req, res) => {
   if (!req.session.user_id) {
@@ -64,7 +71,7 @@ Router.post("/admin/login", async (req, res) => {
 
 Router.get("/admin/signup", (req, res) => {
   if (!req.session.user_id) {
-    return res.status(200).render("templates/admin/signup", { categories });
+    return res.status(200).redirect("/admin/login");
   }
   res.status(500).send({ error: "Already created Account" });
 });
