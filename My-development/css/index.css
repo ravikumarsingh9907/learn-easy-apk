@@ -120,7 +120,7 @@ ul li input {
   background-color: #0b6b94;
 }
 
-/* Login / Sign up button */
+/* Login button */
 span {
   background-color: #0b6b94;
   padding: .5rem 2.5rem;
@@ -129,7 +129,7 @@ span {
 }
 span:hover {
   /* background-color: #239276; */
-  background-color: #43b4da;
+  background-color: #2a97bb;
   transition: all 0.4s linear;
 }
 /* End of navbar */
@@ -230,10 +230,9 @@ span:hover {
 }
 .main_content h2 {
   font-size: 35px;
-  color: #146356;
+  color: #1c7ca9;
 }
 .content_blocks .inner_blocks{
-  /* background-color: #22997f; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -241,17 +240,66 @@ span:hover {
   margin: auto;
 }
 .inner_blocks .card {
+  /* display: block; */
   width: 18rem;
+  height: 18rem;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 5px 5px 25px #a4a3a3;
+}
+.card .card_img {
+  border-radius: 5px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 40%;
+  width: 100%;
+  overflow: hidden;
+}
+.card img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease;
+}
+.card img:hover {
+  transform:  scale(1.2);
+  overflow: hidden;
+  /* height: 100%; */
+  /* width: 30%; */
+}
+.card .card_body {
+  /* background-image: url("../images/card_img.webp"); */
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  border-radius: 20px;
-  background-color: #fff;
-  box-shadow: 5px 5px 10px rgb(131, 131, 131);
+  text-align: start;
+  padding: 0 .8rem;
+  /* height: 800px; */
 }
-.card img{
-  height: 50px;
-  width: 400px;
+.card_body h3 {
+  color: rgb(43, 69, 102);
+  padding-top: 0.8rem;
+}
+.card_body p {
+  font-size: 12px;
+  /* font-weight: 450; */
+  padding-top: .5rem;
+  padding-bottom: 1.5rem;
+}
+.card_body a {
+  width: max-content;
+  text-decoration: none;
+  color: #007590;
+  font-size: 14px;
+  transition: all 0.4s ease;
+  background-color: #a7ebfb;
+  border-radius: 15px;
+  padding: .2rem .5rem;
+}
+.card_body a:hover {
+  color:#00d3f8;
+  /* text-decoration: underline; */
 }
 
 /* End of content block div */
