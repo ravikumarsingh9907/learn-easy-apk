@@ -1,0 +1,27 @@
+<img src="<%= getCourse.image%>" alt="Logo" />
+<h1><%=getCourse.title%></h1>
+<br />
+<h4>Platform: <%=getCourse.platform%></h4>
+<br />
+<a href="<%= getCourse.url%>" target="_blank">Go to the course</a>
+<br />
+<form action="/courses/<%=getCourse._id%>/bookmark" method="POST">
+  <button>Bookmark</button>
+</form>
+<br />
+
+<div class="container">
+  <% for(let crs of getCourse.reviews) {%>
+  <h5>Rating: <%=crs.rating %></h5>
+  <p>Review: <%=crs.review %></p>
+  <%} %>
+</div>
+
+<br />
+<form action="/course/<%=getCourse._id%>" method="post">
+  <label for="rate">Rating:</label>
+  <input type="range" min="1" max="5" name="rating" id="rate" />
+  <label for="review">Review:</label>
+  <textarea name="review" id="review" cols="30" rows="5"></textarea>
+  <button>Submit</button>
+</form>

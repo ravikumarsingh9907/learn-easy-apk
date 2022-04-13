@@ -2,6 +2,7 @@ const express = require("express");
 const course = require("../models/courses");
 require("../db/database");
 const customer = require("../models/users");
+const review = require("../models/reviews");
 const bcrypt = require("bcrypt");
 
 const Router = new express.Router();
@@ -77,11 +78,14 @@ Router.post("/signup", async (req, res) => {
   }
 });
 
-Router.get("/bookmarks", loginRequired, (req, res) => {
-  res.status(200).render("templates/user/customer");
+Router.get("/bookmark", loginRequired, async (req, res) => {
+  const id = req.session.customer_id;
+  const foundUser = await customer.findById(id).populate("Bookmark");
+  console.log(foundUser);
+  res.status(200).render("templates/user/customer", { foundUser });
 });
 
-Router.post("/logout", async (req, res) => {
+Router.get("/logout", async (req, res) => {
   req.session.destroy();
   res.status(200).redirect("/");
 });
@@ -106,10 +110,43 @@ Router.get("/courses/:category", async (req, res) => {
   }
 });
 
+Router.post("/course/:id", loginRequired, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.session.customer_id;
+    const foundUser = await customer.findById(userId);
+    const foundCourse = await course.findById(id);
+    const addReview = new review(req.body);
+    foundUser.reviews.push(addReview);
+    addReview.user = foundUser;
+    foundCourse.reviews.push(addReview);
+    await foundUser.save();
+    await foundCourse.save();
+    await addReview.save();
+    res.status(200).redirect(`/course/${id}`);
+  } catch {
+    res.status(400).send("Something went wrong at adding review");
+  }
+});
+
 Router.get("/course/:id", async (req, res) => {
   const { id } = req.params;
-  const getCourse = await course.findById(id);
-  res.render("templates/user/getcourse", { getCourse });
+  const populatedReview = await review.find();
+  const getCourse = await course.findById(id).populate("reviews");
+  res.status(200).render("templates/user/course", { getCourse });
+});
+
+Router.post("/courses/:id/bookmark", loginRequired, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const foundCourse = await course.findById(id);
+    const foundUser = await customer.findById(req.session.customer_id);
+    foundUser.Bookmark.push(foundCourse);
+    foundUser.save();
+    res.status(200).redirect(`/course/${id}`);
+  } catch {
+    res.status(400).send("Something went wrong");
+  }
 });
 
 module.exports = Router;

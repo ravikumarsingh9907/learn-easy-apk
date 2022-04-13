@@ -55,7 +55,6 @@
         <div class="form_item">
           <label for="type">Type</label>
           <select name="type" id="type" required>
-            <option value="">Choose type</option>
             <% for (let ty of types) {%>
               <option value="<%= ty %>" <%= getCourse.type === ty ? "selected" : ""%>><%= ty%></option>
             <%} %>
@@ -68,7 +67,6 @@
         <div class="form_item">
           <label for="price">Availability: </label>
           <select name="price" id="price" required>
-            <option value="">Choose Availability</option>
             <% for (let prc of price) {%>
               <option value="<%= prc %>" <%= getCourse.price === prc ? "selected" : ""%>><%= prc%></option>
             <%} %>

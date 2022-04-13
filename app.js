@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 require("./db/database");
-const course = require("./models/courses");
 const path = require("path");
 const methodOverride = require("method-override");
 const adminRouter = require("./Routers/adminRouter");
@@ -32,6 +31,7 @@ app.use(session(secretKey));
 app.use(flash());
 
 app.use((req, res, next) => {
+  res.locals.currentLoggedIn = req.session.customer_id;
   res.locals.success = req.flash("success");
   next();
 });

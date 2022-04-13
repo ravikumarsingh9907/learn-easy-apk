@@ -47,7 +47,11 @@
             <li><a href="#contact" class="nav_li">Contact us</a></li>
             <!-- <li><a href="login.html" class="login">Login</a></li> -->
             <li>
-              <a href="/login" alt="for log in"><span>Login/Sign Up</span></a>
+              <% if(!currentLoggedIn) {%>
+              <a href="/login" alt="for log in"><span>Login/Register</span></a>
+              <%} else {%>
+              <a href="/logout" alt="for log in"><span>Logout</span></a>
+              <%} %>
             </li>
           </ul>
         </div>
