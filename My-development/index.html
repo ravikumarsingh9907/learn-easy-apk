@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Smart-Main Page</title>
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/media.css" class="css">
+
+    <!-- Google font link-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;600&display=swap" rel="stylesheet">
+
+    <!-- Favicon icon -->
+    <link rel = "icon" type="image/png" href = "icons/title.png">
+
+    <!-- Boxicon link -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- AOS cdn -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <a href="card.html">Card</a>
+    <!-- Header -->
+    <header>
+        <!-- Navbar -->
+        <div class="navigation">
+            <div class="navbar_logo">
+                <a href="index.html"><img src="icons/demo_icon.png" class="icon1" /></a>
+                <div class="sidebar" id="sidebar">
+                    <div class="top" id="top_cross"><i class='bx bx-menu'></i></div>
+                </div>
+            </div>
+
+            <div class="navbar_links" id="app">
+                <ul>
+                    <li class="search_box">
+                        <form action="">
+                            <input type="text" name="query" placeholder="Search courses...">
+                            <button type="submit"><i class='bx bx-search-alt-2'></i></button>
+                        </form>
+                    </li>
+                    <li><a href="#resource" class="nav_li">Resources</a></li>
+                    <li><a href="#about" class="nav_li">About</a></li>
+                    <li><a href="#contact" class="nav_li">Contact us</a></li>
+                    <li><a href="login.html" alt="for log in"><span>Login</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- End of Navbar -->
+
+
+    <!-- Header Image and text-->
+    <div class="header_image">
+        <div class="head_img">
+            <img src="images/demo-bg.png" />
+        </div>
+        <div class="header_text">
+            <h2>New Home of Learning</h2>
+            <p>Get here the resources for Computer Science geeks</p>
+            <button class="resource_butn"><a href="#resource">View Resources</a></button>
+        </div>
+    </div>
+
+    <!-- Content block -->
+    <div class="content_blocks">
+        <div class="main_content" id="resource">
+            <h2>Start Learning</h2>
+            <!-- <p>Get all resources at learnSmart.com</p> -->
+        </div>
+        <div class="inner">
+            <div class="block_items">
+                <h3>Data Structures</h3>
+                <div class="items">
+                    <div class="item">Array</div>
+                    <div class="item">Linked list</div>
+                    <div class="item">Stack</div>
+                    <div class="item">Queue</div>
+                    <div class="item">Tree</div>
+                    <div class="item">Graph</div>
+                </div>
+                <a href="ds.html" class="item_button">View more</a>
+            </div>
+            <div class="block_items">
+                <h3>Web Development</h3>
+                <div class="items">
+                    <div class="item">HTML</div>
+                    <div class="item">CSS</div>
+                    <div class="item">JavaScript</div>
+                    <div class="item">React Js</div>
+                    <div class="item">Angular Js</div>
+                    <div class="item">Node Js</div>
+                </div>
+                <a href="webd.html" class="item_button">View more</a>
+            </div>
+            <div class="block_items">
+                <h3>Artificial Intelligence</h3>
+                <div class="items">
+                    <div class="item">Algebra</div>
+                    <div class="item">Statistics</div>
+                    <div class="item">ANN</div>
+                    <div class="item">CNN</div>
+                    <div class="item">RNN</div>
+                </div>
+                <a href="#" class="item_button">View more</a>
+            </div>
+            <div class="block_items">
+                <h3>Machine Learning</h3>
+                <div class="items">
+                    <div class="item">Supervised</div>
+                    <div class="item">Unsupervised</div>
+                    <div class="item">Regression</div>
+                    <div class="item">Classification</div>
+                    <div class="item">Neural Network</div>
+                </div>
+                <a href="#" class="item_button">View more</a>
+            </div>
+            <div class="block_items">
+                <h3>Android Development</h3>
+                <div class="items">
+                    <div class="item">OOPs</div>
+                    <div class="item">Views</div>
+                    <div class="item">Components</div>
+                    <div class="item">Lists</div>
+                </div>
+                <a href="#" class="item_button">View more</a>
+            </div>
+            <div class="block_items">
+                <h3>Blockchain Development</h3>
+                <div class="items">
+                    <div class="item">Bitcoin</div>
+                    <div class="item">Ethereum</div>
+                    <div class="item">Solidity</div>
+                    <div class="item">Cryptocurrency</div>
+                    <div class="item">NFTs</div>
+                </div>
+                <a href="#" class="item_button">View more</a>
+            </div>
+        </div>
+        <!-- Separate view Button -->
+        <div class="view_button">
+            <a href="resources.html" class="butn">View More</a>
+        </div>
+    </div>
+    <!-- End of content block -->
+
+    <!-- Contact us section -->
+    <div class="contact_div" id="contact"  data-aos="fade-up" data-aos-duration="1000">
+        <h3>Connect with us</h3>
+        <div class="wrapper">
+            <form class="input_part" method="post" action="">                             <!--https://formspree.io/f/mgedzgdo"-->
+                <img src="icons/avatar.png" class="avatar_icon">
+                <input class="input-field" type="text"  name="name" placeholder="Name">
+                <img src="icons/msg.png" class="msg_icon">
+                <input class="input-field" type="text"  name="email" placeholder="Email">
+                <textarea rows="5" cols="5"  name="message" placeholder="Message"></textarea>
+                <button class="submit_btn" type="submit">Submit</button>
+            </form>
+            <div class="envelope_icon_div">
+                <img src="icons/envelope_icon.png" class="icon_env">
+            </div>
+        </div>
+    </div>
+    <!-- End of contact div -->
+
+    <!--  Contributors -->
+    <div class="about_div" id="about"  data-aos="fade-up" data-aos-duration="1000">
+        <h3>Our team</h3>
+        <div class="members">
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Abhishek Kumar</h4>
+                    <p>CSE Undergrad</p>
+                </div>
+            </div>
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Karuna Yadav</h4>
+                    <p>CSE Undergrad</p>
+                </div>
+            </div>
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Ravi Kumar</h4>
+                    <p>CSE Undergrad</p>
+                </div>
+            </div>
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Rajneesh Pandey</h4>
+                    <p>CSE Undergrad</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Contributors div -->
+
+    <!-- Footer div -->
+    <footer class="footer">
+        <div class="footer_inner">
+            <div class="foot_logo">
+                <img src="icons/Learn_Smart.png" alt="Learn Smart logo" class="brain_logo">
+                <!-- <div class="logo_title">Learn Smart</div>
+                <div class="logo_tag">An Easy Way Of Learning</div> -->
+            </div>
+            <div class="links_container">
+                <div class="resources">
+                    <h4>Explore</h4>
+                    <div class="links">
+                        <a href="#">Home</a>
+                        <a href="#resource">Resources</a>
+                        <a href="#contact">Contact</a>
+                        <a href="#about">About</a>
+                    </div>
+                </div>
+                <div class="community_link">
+                    <h4>Communities</h4>
+                    <div class="communities">
+                        <a href="https://dev.to/">DEV</a>
+                        <a href="https://hashnode.com/">Hashnode</a>
+                        <a href="https://www.indiehackers.com/">Indie Hackers</a>
+                        <a href="https://stackoverflow.com/">StackOverflow</a>
+                    </div>
+                </div>
+                <div class="social_div">
+                    <h4>Follow us on</h4>
+                    <div class="icon_links">
+                        <a href="#facebook"><i class='bx bxl-facebook-circle'></i></a>
+                        <a href="#instagram"><i class='bx bxl-instagram'></i></a>
+                        <a href="#twitter"><i class='bx bxl-twitter'></i></a>
+                        <a href="#github"><i class='bx bxl-github'></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright_div">
+            <p>Copyrights ©2022. All rights are reserved.</p>
+        </div>
+    </footer>
+    <!-- End of footer div -->
+
+    <!-- Javascript link -->
+    <script src="js/script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+
+  </body>
+</html>
