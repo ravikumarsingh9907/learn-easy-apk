@@ -8,13 +8,13 @@ const bcrypt = require("bcrypt");
 const Router = new express.Router();
 
 const categories = [
-  "WD(Web Development)",
+  "Web Development",
   "DSA",
-  "ML(Machine Learning)",
-  "BC(Blockchain)",
-  "DS(Data Science)",
-  "AD(Anroid Development)",
-  "AI(Artificial Intelligence)",
+  "Machine Learning",
+  "Blockchain",
+  "Data Science",
+  "Anroid Development",
+  "Artificial Intelligence",
 ];
 
 const loginRequired = (req, res, next) => {
@@ -83,6 +83,22 @@ Router.get("/bookmark", loginRequired, async (req, res) => {
   const foundUser = await customer.findById(id).populate("Bookmark");
   console.log(foundUser);
   res.status(200).render("templates/user/customer", { foundUser });
+});
+
+Router.get("/search", async (req, res) => {
+  try {
+    const showCourses = await course.find({
+      $or: [
+        { title: { $regex: req.query.coursename } },
+        { category: { $regex: req.query.coursename } },
+        { tags: { $regex: req.query.coursename } },
+      ],
+    });
+    console.log(showCourses);
+    res.status(200).render("templates/user/catCourse", { showCourses });
+  } catch {
+    res.status(400).send("Something went wrong at search");
+  }
 });
 
 Router.get("/logout", async (req, res) => {
