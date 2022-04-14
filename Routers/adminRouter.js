@@ -15,13 +15,13 @@ const Router = new express.Router();
 
 // creating Categories
 const categories = [
-  "WD(Web Development)",
+  "Web Development",
   "DSA",
-  "ML(Machine Learning)",
-  "BC(Blockchain)",
-  "DS(Data Science)",
-  "AD(Anroid Development)",
-  "AI(Artificial Intelligence)",
+  "Machine Learning",
+  "Blockchain",
+  "Data Science",
+  "Anroid Development",
+  "Artificial Intelligence",
 ];
 
 // Levels
