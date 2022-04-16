@@ -62,13 +62,6 @@
             />
             <i class="fa-solid fa-eye" id="password_eye"></i>
           </div>
-          <div class="input_container">
-            <select name="interest" id="interest" required>
-              <% for(let interest of categories) {%>
-              <option value="<%= interest%>"><%= interest %></option>
-              <%}%>
-            </select>
-          </div>
           <button class="submit_btn">Create Account</button>
           <p>Already have an account? <a href="/admin/login"> Login </a></p>
         </form>

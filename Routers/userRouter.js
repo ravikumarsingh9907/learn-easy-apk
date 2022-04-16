@@ -87,14 +87,15 @@ Router.get("/bookmark", loginRequired, async (req, res) => {
 
 Router.get("/search", async (req, res) => {
   try {
+    let searchCourse = req.query.coursename;
+    searchCourse = searchCourse.toLowerCase();
     const showCourses = await course.find({
       $or: [
         { title: { $regex: req.query.coursename } },
         { category: { $regex: req.query.coursename } },
-        { tags: { $regex: req.query.coursename } },
+        { tags: { $regex: searchCourse } },
       ],
     });
-    console.log(showCourses);
     res.status(200).render("templates/user/catCourse", { showCourses });
   } catch {
     res.status(400).send("Something went wrong at search");
