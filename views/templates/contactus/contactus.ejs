@@ -1,0 +1,23 @@
+<div
+  class="contact_div"
+  id="contact"
+  data-aos="fade-up"
+  data-aos-duration="1000"
+>
+  <h3>Get in touch</h3>
+  <div class="wrapper">
+    <form class="input_part" method="post" action="/contactus">
+      <img src="/icons/avatar.png" class="avatar_icon" />
+      <% if(!currentLoggedIn) {%>
+      <input class="input-field" type="text" name="name" placeholder="Name" />
+      <img src="/icons/msg.png" class="msg_icon" />
+      <input class="input-field" type="text" name="email" placeholder="Email" />
+      <%} %>
+      <textarea rows="5" cols="5" name="query" placeholder="Message"></textarea>
+      <button class="submit_btn" type="submit">Submit</button>
+    </form>
+    <div class="envelope_icon_div">
+      <img src="/icons/envelope_icon.png" class="icon_env" />
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const adminRouter = require("./Routers/adminRouter");
 const userRouter = require("./Routers/userRouter");
+const contactRouter = require("./Routers/contactRouter");
 const session = require("express-session");
 const flash = require("connect-flash");
 
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 // Admin Router
 app.use(adminRouter);
 app.use(userRouter);
+app.use(contactRouter);
 
 // Listening to port
 app.listen(3000, () => {

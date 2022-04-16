@@ -47,6 +47,12 @@ const userSchema = new mongoose.Schema(
         ref: "Course",
       },
     ],
+    queries: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "contact",
+      },
+    ],
   },
   {
     timestamps: true,
