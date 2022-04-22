@@ -39,15 +39,16 @@
             <div class="navbar_links" id="app">
                 <ul>
                     <!-- Search box -->
-                    <li class="search_box">
-                        <form action="">
-                            <input type="text" name="query" placeholder="Search courses...">
-                            <button type="submit"><i class='bx bx-search-alt-2'></i></button>
+                    <li class="search-box">
+                        <form action="" class="search-form" method="get" id="search_form">
+                            <input type="text" name="query" id="search-box" placeholder="Search courses...">
+                            <button id="btn" type="button"><i class='bx bx-x'></i></button>
+                            <button type="submit"><i class='bx bx-search'></i></button>
                         </form>
                     </li>
                     <li><a href="#resource" class="nav_li">Resources</a></li>
                     <li><a href="#about" class="nav_li">About</a></li>
-                    <li><a href="#contact" class="nav_li">Contact us</a></li>
+                    <li><a href="contact.html" class="nav_li">Contact us</a></li>
                     <li><a href="login.html" alt="for log in"><span>Login</span></a></li>
                 </ul>
             </div>
@@ -62,8 +63,8 @@
             <img src="images/demo-bg.png" />
         </div>
         <div class="header_text">
-            <h2>New Home of Learning</h2>
-            <p>Get here the resources for Computer Science geeks</p>
+            <h2>Your new learning Partner</h2>
+            <p>Get the best resources for learning </p>
             <button class="resource_butn"><a href="#resource">View Resources</a></button>
         </div>
     </div>
@@ -162,29 +163,10 @@
         </div>
         <!-- Separate view Button -->
         <div class="view_button">
-            <a href="resources.html" class="butn">View More</a>
+            <a href="resources.html" class="butn">View Courses</a>
         </div>
     </div>
     <!-- End of content block -->
-
-    <!-- Contact us section -->
-    <div class="contact_div" id="contact"  data-aos="fade-up" data-aos-duration="1000">
-        <h3>Connect with us</h3>
-        <div class="wrapper">
-            <form class="input_part" method="post" action="">                             <!--https://formspree.io/f/mgedzgdo"-->
-                <img src="icons/avatar.png" class="avatar_icon">
-                <input class="input-field" type="text"  name="name" placeholder="Name">
-                <img src="icons/msg.png" class="msg_icon">
-                <input class="input-field" type="text"  name="email" placeholder="Email">
-                <textarea rows="5" cols="5"  name="message" placeholder="Message"></textarea>
-                <button class="submit_btn" type="submit">Submit</button>
-            </form>
-            <div class="envelope_icon_div">
-                <img src="icons/envelope_icon.png" class="icon_env">
-            </div>
-        </div>
-    </div>
-    <!-- End of contact div -->
 
     <!--  Contributors -->
     <div class="about_div" id="about"  data-aos="fade-up" data-aos-duration="1000">

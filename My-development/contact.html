@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page</title>
+
+    <!-- CSS link -->
+    <link rel="stylesheet" href="css/contact.css">
+    
+    <!-- Google font link-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;600&display=swap" rel="stylesheet">
+
+    <!-- Favicon icon -->
+    <link rel = "icon" type="image/png" href = "icons/title.png">
+
+    <!-- Boxicon link -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <!-- Contact us div-->
+    <div class="contact_div" id="contact"  data-aos="fade-up" data-aos-duration="1000">
+        <h3>Connect with us</h3>
+        <p>Gotnew resources or any issues.. </p>
+        <div class="wrapper">
+            <form class="input_part" method="post" action="">                             <!--https://formspree.io/f/mgedzgdo"-->
+                <img src="icons/avatar.png" class="avatar_icon">
+                <input class="input-field" type="text" name="name" placeholder="Name">
+                <img src="icons/msg.png" class="msg_icon">
+                <input class="input-field" type="text" name="email" placeholder="Email">
+                <i class='bx bx-message-alt-edit'></i>
+                <input class="input-field" type="text" name="subject" placeholder="Subject">
+                <textarea rows="5" cols="5"  name="message" placeholder="Message"></textarea>
+                <button class="submit_btn" type="submit">Submit</button>
+            </form>
+            <div class="envelope_icon_div">
+                <img src="icons/envelope_icon.png" class="icon_env">
+            </div>
+        </div>
+    </div>
+    <!-- End of contact div -->
+</body>
+</html>
