@@ -9,12 +9,12 @@ body{
   font-family: 'Poppins', sans-serif;
 }
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 /* Scrollbar style */
 ::-webkit-scrollbar-thumb {
-  background-color: #0b6b94;
+  background-color: #004f70;
   border-radius: 5px;
 }
 
@@ -26,7 +26,7 @@ header .navigation {
   width: 100%;
   height: 100%;
   position: relative;
-  box-shadow: 0px 4px 25px #7a7a7a
+  box-shadow: 0px 0px 10px 1px #a8a8a8
 }
 .navigation .navbar_logo {
   width: 14rem;
@@ -78,7 +78,6 @@ img {
 .search-form:hover {
   box-shadow: 1px 2px 12px #aeaeae;
 }
-
 .formwidth{
     width: 100%;
 }
@@ -128,7 +127,6 @@ ul li input {
   width: 100%;
   background-color: #e4e11f;
 }
-
 /* Login button */
 span {
   background-color: #0b6b94;
@@ -141,7 +139,6 @@ span:hover {
   transition: all 0.4s linear;
 }
 /* End of navbar */
-
 
 /* Header image */
 .header_image{
@@ -225,6 +222,7 @@ span:hover {
   width: 100%;
   text-align: center;
   padding: 2rem;
+  /* background-color: #c4f6ff; */
 }
 
 /* Main Content */
@@ -235,7 +233,7 @@ span:hover {
 }
 .main_content h2 {
   font-size: 35px;
-  color: #1c7ca9;
+  color: #004f7c;
 }
 .content_blocks .inner_blocks{
   display: grid;
@@ -320,37 +318,72 @@ span:hover {
   text-decoration: none;
   font-size: 15px;
   font-weight: bold;
-  background-color: #a7ebfb;
+  background-color: #0b6b94;
   padding: .8rem .9rem;
   border: none;
   border-radius:7px;
   cursor: pointer;
-  color: #007590;
+  color: #fff;
   outline: none;
   transition: all 0.4s linear;
   box-shadow: 3px 3px 8px #a4a3a3;
 }
 .butn:hover {
-  color: #fff;
-  background-color:#32bbc5;
+  background-color: #1f91b7;
   box-shadow: 5px 5px 30px #a4a3a3;
 }
 /* End of separate button */
 
+/* Conact-us div */
+.contact-div {
+  background-color: rgb(202, 255, 252);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .7rem;
+}
+.contact-div .search-text h2 {
+  color:#00415c;
+  font-size: 35px;
+}
+.contact-div .search-text p {
+  color:#1c95b6;
+  padding-top: .5rem;
+  padding-bottom: 1.3rem;
+}
+.contact-div .search-text a {
+  background-color: #0b6b94;
+  padding: .6rem;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 5px 5px 15px 0px grey;
+  transition: all 0.4s ease;
+}
+.contact-div .search-text a:hover {
+  background-color: #1f91b7;
+}
+.contact-div .search-img {
+  width: 40%;
+}
+.search-img img {
+  width: 100%;
+  height: 100%;
+}
+/* End of Contact div */
+
+
 /* About us div*/
 .about_div {
-  /* background-color: #EEEE; */
-  background-image: linear-gradient(to left, #0fb263, #4ab45b, #68b555, #81b651, #96b650);
   display: block;
+  /* background-color: hsl(189, 28%, 90%); */
 }
 .about_div h3 {
   text-align: center;
   padding: 1.5rem 0;
   font-size: 35px;
-  color: #146356;
+  color: #004f7c;
 }
 .about_div .members {
-  /* background-color: red; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -359,47 +392,51 @@ span:hover {
   /* width: 100%; */
 }
 .about_div .members .member{
-  /* background-color: #38d8a2; */
-  padding: 0.6rem;
+  padding: 0.8rem;
   width: 200px;
   height: 100%;
   text-align: center;
-  border-radius: 10px;
 }
 .members .member .avatar_parent{
-  width: 130px;
   height: 150px;
-  margin: 0 auto;
 }
-.members .member .member_img {
+.members .member img {
   background-color: rgb(134, 194, 194);
   border-radius: 50%;
   width: 100%;
   height: 100%;
+  box-shadow: 0px 5px 15px rgb(87, 87, 87);
 }
 .members .member h4 {
   color: #000;
   padding: .5rem;
   margin-top: .3rem; 
   font-size: 17px;
-  width: 100%;
+  /* width: 100%; */
 }
 .members .member .profile {
     padding: .2rem;
     width: 100%;
 }
 .profile p {
-    color: #024979;
-    font-size: 14px;
-    font-weight: 550;
+    color: #616161;
+    font-size: 13px;
+    padding-top: .4rem;
+    padding-bottom: .2rem;
+}
+.profile small {
+  color: #01597f;
+  font-size: 14px;
+  font-weight: 600;
 }
 /* End of About div */
 
 
 /* Footer */
 .footer {
-  background-color: #07a274;
-  margin-top: 2rem;
+  /* background-color: #43c6c6; */
+  /* margin-top: 2rem; */
+  background-color: #046f93;
 }
 .footer .footer_inner {
   display: flex;
@@ -444,7 +481,7 @@ span:hover {
   color: rgb(41, 37, 37);
 }
 .links a:hover, .community_link a:hover{
-  color: #c0392b;
+  color: rgb(215, 214, 214);
   transition: color 0.3s ease;
 }
 /* End of footer links */

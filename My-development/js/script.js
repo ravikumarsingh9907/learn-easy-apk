@@ -26,9 +26,9 @@ function show(){
 // targetElement.addEventListener(event,eventhandler);
 bar.addEventListener('click', show);
 
-function discard() {
+// function discard() {
     
-}
+// }
 
 search_cross.addEventListener('input',()=>{
   if(search_cross.value !=''){
