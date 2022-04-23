@@ -127,6 +127,21 @@ ul li input {
   width: 100%;
   background-color: #e4e11f;
 }
+/* Avatar icon */
+
+.navbar_links li .avatar-img {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: none;
+}
+.avatar-img img {
+  width: 40px;
+  height: 40px;
+  background-color: #0b6b94;
+}
+
+
 /* Login button */
 span {
   background-color: #0b6b94;
@@ -243,6 +258,7 @@ span:hover {
   margin: auto;
 }
 .inner_blocks .card {
+  margin: auto;
   width: 18rem;
   height: 20rem;
   border-radius: 5px;
@@ -340,7 +356,11 @@ span:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: .7rem;
+  padding: .5rem;
+}
+.contact-div .search-text {
+  /* background-color: red; */
+  height: 150px;
 }
 .contact-div .search-text h2 {
   color:#00415c;
@@ -363,7 +383,8 @@ span:hover {
   background-color: #1f91b7;
 }
 .contact-div .search-img {
-  width: 40%;
+  width: 35%;
+  height: 100%;
 }
 .search-img img {
   width: 100%;
@@ -374,6 +395,7 @@ span:hover {
 
 /* About us div*/
 .about_div {
+  padding: 2rem 0;
   display: block;
   /* background-color: hsl(189, 28%, 90%); */
 }
@@ -391,28 +413,34 @@ span:hover {
   padding-bottom: 2rem;
   /* width: 100%; */
 }
-.about_div .members .member{
+.about_div .members .member { 
   padding: 0.8rem;
   width: 200px;
   height: 100%;
   text-align: center;
+  /* background-color: green; */
+
 }
-.members .member .avatar_parent{
-  height: 150px;
+.members .member .avatar_parent {
+  height: 120px;
+  width: 120px;
+  /* background-color: red; */
+  margin: auto;
+  /* text-align: center; */
 }
 .members .member img {
-  background-color: rgb(134, 194, 194);
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0px 5px 15px rgb(87, 87, 87);
+    background-color: rgb(134, 194, 194);
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 5px 15px rgb(87, 87, 87);
 }
 .members .member h4 {
-  color: #000;
-  padding: .5rem;
-  margin-top: .3rem; 
-  font-size: 17px;
-  /* width: 100%; */
+    color: #000;
+    padding: .5rem;
+    margin-top: .3rem; 
+    font-size: 17px;
+    /* width: 100%; */
 }
 .members .member .profile {
     padding: .2rem;
@@ -434,8 +462,6 @@ span:hover {
 
 /* Footer */
 .footer {
-  /* background-color: #43c6c6; */
-  /* margin-top: 2rem; */
   background-color: #046f93;
 }
 .footer .footer_inner {
@@ -447,19 +473,18 @@ span:hover {
   gap: 1rem;
 }
 .foot_logo {
-  width: 25%;
-  height: 300px;
-
+  width: 20%;
+  height: 250px;
 }
 .foot_logo img {
-  width: 100%;
+  width: 80%;
   height: 100%;
 }
 /* Footer page links */
 .footer_inner .links_container {
   display: flex;
   justify-content: space-evenly;
-  width: 50%;
+  width: 70%;
   padding: 3rem 0;
 }
 .links_container .resources h4, .community_link h4 {
