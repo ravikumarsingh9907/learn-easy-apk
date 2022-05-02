@@ -43,10 +43,10 @@ app.use(adminRouter);
 app.use(userRouter);
 app.use(contactRouter);
 
-app.use((err, req, res, next) => {
-  const { status = 500, message = "Something went wrong" } = err;
-  res.status(status).send(message);
-});
+// app.use((err, req, res, next) => {
+//   const { status = 500, message = "Something went wrong" } = err;
+//   res.status(status).send(message);
+// });
 
 // Listening to port
 app.listen(3000, () => {
