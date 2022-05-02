@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Smart-Main Page</title>
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/media.css" class="css">
+
+    <!-- Google font link-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;600&display=swap" rel="stylesheet">
+
+    <!-- Favicon icon -->
+    <link rel = "icon" type="image/png" href = "icons/title.png">
+
+    <!-- Boxicon link -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- AOS cdn -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+        <!-- Navbar -->
+        <div class="navigation">
+            <div class="navbar_logo">
+                <a href="index.html"><img src="icons/demo_icon.png" class="icon1" /></a>
+                <div class="sidebar" id="sidebar">
+                    <div class="top" id="top_cross"><i class='bx bx-menu'></i></div>
+                </div>
+            </div>
+
+            
+            <div class="navbar_links" id="app">
+                <ul>
+                    <!-- Search box -->
+                    <li class="search-box">
+                        <form action="" class="search-form" method="get" id="search_form">
+                            <input type="text" name="query" id="search-box" placeholder="Search courses...">
+                            <button id="btn" type="button"><i class='bx bx-x'></i></button>
+                            <button type="submit"><i class='bx bx-search'></i></button>
+                        </form>
+                    </li>
+                    <li><a href="#resource" class="nav_li">Resources</a></li>
+                    <li><a href="#about" class="nav_li">About</a></li>
+                    <li><a href="contact.html" class="nav_li">Contact</a></li>
+                    <li><a href="login.html" alt="for log in"><span>Login</span></a></li>
+                    <li><a href="#" class="avatar-img"><img src="icons/avatar.png" alt="profile image"></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- End of Navbar -->
+
+
+    <!-- Header Image and text-->
+    <div class="header_image">
+        <div class="head_img">
+            <img src="images/demo-bg.png" />
+        </div>
+        <div class="header_text">
+            <h2>Your new learning Partner</h2>
+            <p>Get the best resources for learning </p>
+            <button class="resource_butn"><a href="#resource">View Resources</a></button>
+        </div>
+    </div>
+
+    <!-- Content block -->
+    <div class="content_blocks">
+        <div class="main_content" id="resource">
+            <h2>Explore Courses</h2>
+            <!-- <p>Get all resources at learnSmart.com</p> -->
+        </div>
+        <div class="inner_blocks">
+            <div class="card">
+                <div class="card_img">
+                    <a href="#">
+                        <img src="images/webp/card_img.webp" class="card-img" alt="Data Structures">
+                    </a>
+                </div>
+                <div class="card_body">
+                    <h3 class="card_title">Data Structures</h3>
+                    <p class="card_text">
+                        Data structure is a way of arranging data on a computer so that it can be accessed and updated efficiently.
+                    </p>
+                    <a href="#" class="btn">View more</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card_img">
+                    <a href="#">
+                        <img src="images/webp/card_img2.webp" class="card-img" alt="Web development">
+                    </a>
+                </div>
+                <div class="card_body">
+                    <h3 class="card_title">Web Development</h3>
+                    <p class="card_text">
+                        Web development is the building of websites that happens behind the scenes to make a website look great.
+                    </p>
+                    <a href="#" class="btn">View more</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card_img">
+                    <a href="#">
+                        <img src="images/webp/card_img3.webp" class="card-img" alt="Artificial Intelligence">
+                    </a>
+                </div>
+                <div class="card_body">
+                    <h3 class="card_title">Artificial Intelligence</h3>
+                    <p class="card_text">
+                        Artificial intelligence (AI) is the ability of a computer program or a machine to think and learn.
+                    </p>
+                    <a href="#" class="btn">View more</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card_img">
+                    <a href="#">
+                        <img src="images/webp/card_img4.webp" class="card-img" alt="Machine learning">
+                    </a>
+                </div>
+                <div class="card_body">
+                    <h3 class="card_title">Machine Learning</h3>
+                    <p class="card_text">
+                        Machine learning enables systems to learn and improve from experience without being explicitly programmed.
+                    </p>
+                    <a href="#" class="btn">View more</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card_img">
+                    <a href="#">
+                        <img src="images/webp/card_img5.webp" class="card-img" alt="Android development">
+                    </a>
+                </div>
+                <div class="card_body">
+                    <h3 class="card_title">Android Development</h3>
+                    <p class="card_text">
+                        Android development is the process by which applications are created for devices running the Android operating system.
+                    </p>
+                    <a href="#" class="btn">View more</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card_img">
+                    <a href="#">
+                        <img src="images/webp/card_img6.webp" class="card-img" alt="Blockchain development">
+                    </a>
+                </div>
+                <div class="card_body">
+                    <h3 class="card_title">Blockchain Development</h3>
+                    <p class="card_text">
+                        A blockchain is a decentralized digital ledger that saves transactions on thousands of computers around the globe.
+                    </p>
+                    <a href="#" class="btn">View more</a>
+                </div>
+            </div>
+        </div>
+        <!-- Separate view Button -->
+        <div class="view_button">
+            <a href="resources.html" class="butn">View Courses</a>
+        </div>
+    </div>
+    <!-- End of content block -->
+
+    <!-- Contact us div -->
+    <div class="contact-div">
+        <div class="search-text">
+            <h2>Looking for resources you want?</h2>
+            <p class="get-resource">To get your personalised resources, just mail us</p>
+            <a href="./contact.html">Contact us</a>
+        </div>
+        <div class="search-img">
+            <img src="images/search_image.webp" alt="man searching on the web">
+        </div>
+    </div>
+    <!-- End of Contact-us div-->
+
+    <!--  Contributors -->
+    <div class="about_div" id="about">
+        <h3>Our team</h3>
+        <div class="members">
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Abhishek Kumar</h4>
+                    <p>CSE Undergrad</p>
+                    <small>SISTec, Bhopal</small>
+                </div>
+            </div>
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Karuna Yadav</h4>
+                    <p>CSE Undergrad</p>
+                    <small>SISTec, Bhopal</small>
+                </div>
+            </div>
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Ravi Kumar</h4>
+                    <p>CSE Undergrad</p>
+                    <small>SISTec, Bhopal</small>
+                </div>
+            </div>
+            <div class="member">
+                <div class="avatar_parent">
+                    <img src="images/team_pic.webp" alt="" class="member_img">
+                </div>
+                <div class="profile">
+                    <h4>Rajneesh Pandey</h4>
+                    <p>CSE Undergrad</p>
+                    <small>SISTec, Bhopal</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Contributors div -->
+
+    <!-- Footer div -->
+    <footer class="footer">
+        <div class="footer_inner">
+            <div class="foot_logo">
+                <img src="icons/demo.png" alt="Learn Smart logo" class="brain-logo">
+            </div>
+            <div class="links_container">
+                <div class="resources">
+                    <h4>Explore</h4>
+                    <div class="links">
+                        <a href="#">Home</a>
+                        <a href="resource.html">Resources</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="#about">About</a>
+                    </div>
+                </div>
+                <div class="community_link">
+                    <h4>Communities</h4>
+                    <div class="communities">
+                        <a href="https://dev.to/">DEV</a>
+                        <a href="https://hashnode.com/">Hashnode</a>
+                        <a href="https://www.indiehackers.com/">Indie Hackers</a>
+                        <a href="https://stackoverflow.com/">StackOverflow</a>
+                    </div>
+                </div>
+                <div class="social_div">
+                    <h4>Follow us on</h4>
+                    <div class="icon_links">
+                        <a href="#facebook"><i class='bx bxl-facebook-circle'></i></a>
+                        <a href="#instagram"><i class='bx bxl-instagram'></i></a>
+                        <a href="#twitter"><i class='bx bxl-twitter'></i></a>
+                        <a href="#github"><i class='bx bxl-github'></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright_div">
+            <p>Copyrights ©2022. All rights are reserved.</p>
+        </div>
+    </footer>
+    <!-- End of footer div -->
+
+    <!-- Script link -->
+    <script src="js/script.js"></script>
+
+    <!-- For animation, AOS library -->
+    <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+    <!-- <script>AOS.init();</script> -->
+
+  </body>
+</html>
