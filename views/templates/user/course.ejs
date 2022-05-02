@@ -9,6 +9,9 @@
   <button>Bookmark</button>
 </form>
 <br />
+<div>
+  <h2><%= avgRating%> (<%= ratingCount%>)</h2>
+</div>
 
 <div class="container">
   <% for(let crs of getCourse.reviews) {%>
@@ -18,7 +21,7 @@
 </div>
 
 <br />
-<form action="/course/<%=getCourse._id%>" method="post">
+<form action="/courses/<%=getCourse._id%>" method="POST">
   <label for="rate">Rating:</label>
   <input type="range" min="1" max="5" name="rating" id="rate" />
   <label for="review">Review:</label>

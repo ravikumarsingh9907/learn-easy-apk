@@ -40,15 +40,6 @@
         enctype="multipart/form-data"
       >
         <div class="form_item">
-          <label for="category">Category</label>
-          <select name="category" id="category" name="category" required>
-            <option value="">Choose Category</option>
-            <% for (let crs of categories) {%>
-              <option value="<%= crs %>" <%= getCourse.category === crs ? "selected" : ""%>><%= crs%></option>
-            <%} %>
-          </select>
-        </div>
-        <div class="form_item">
           <label for="course">Course</label>
           <input type="text" id="course" name="title" required value="<%= getCourse.title%>" />
         </div>

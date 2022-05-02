@@ -9,6 +9,7 @@ const methodOverride = require("method-override");
 const adminRouter = require("./Routers/adminRouter");
 const userRouter = require("./Routers/userRouter");
 const contactRouter = require("./Routers/contactRouter");
+const CustomError = require("./errorHandler");
 const session = require("express-session");
 const flash = require("connect-flash");
 
@@ -41,6 +42,11 @@ app.use((req, res, next) => {
 app.use(adminRouter);
 app.use(userRouter);
 app.use(contactRouter);
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Something went wrong" } = err;
+  res.status(status).send(message);
+});
 
 // Listening to port
 app.listen(3000, () => {

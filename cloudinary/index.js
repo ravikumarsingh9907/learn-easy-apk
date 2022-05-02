@@ -14,7 +14,15 @@ const storage = new CloudinaryStorage({
   },
 });
 
+const storage2 = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "Categories",
+  },
+});
+
 module.exports = {
   cloudinary,
   storage,
+  storage2,
 };

@@ -1,0 +1,26 @@
+<!-- Content block -->
+<div class="content_blocks" data-aos="fade-up" data-aos-duration="1000">
+  <div class="main_content" id="resource">
+    <h2>Start Learning</h2>
+    <p>Get all resources at learnSmart.com</p>
+  </div>
+  <div class="inner">
+    <% for(var cat of getCategories) { %>
+    <div class="block_items">
+      <h3><%= cat.name%></h3>
+      <div class="items">
+        <div class="item">Array</div>
+        <div class="item">Linked list</div>
+        <div class="item">Stack</div>
+        <div class="item">Queue</div>
+        <div class="item">Tree</div>
+        <div class="item">Graph</div>
+      </div>
+      <div class="item_button">
+        <a href="/courses/<%= cat._id%>">View Courses</a>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+<!-- End of content block -->

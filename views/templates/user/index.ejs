@@ -89,8 +89,9 @@
         <p>Get all resources at learnSmart.com</p>
       </div>
       <div class="inner">
+        <% for(var cat of getCategories) { %>
         <div class="block_items">
-          <h3>Data Structures</h3>
+          <h3><%= cat.name%></h3>
           <div class="items">
             <div class="item">Array</div>
             <div class="item">Linked list</div>
@@ -99,97 +100,19 @@
             <div class="item">Tree</div>
             <div class="item">Graph</div>
           </div>
-          <div class="item_button"><a href="/courses/DSA">View Courses</a></div>
-        </div>
-        <div class="block_items">
-          <h3>Web Development</h3>
-          <div class="items">
-            <div class="item">HTML</div>
-            <div class="item">CSS</div>
-            <div class="item">JavaScript</div>
-            <div class="item">React Js</div>
-            <div class="item">Angular Js</div>
-            <div class="item">Node Js</div>
-          </div>
           <div class="item_button">
-            <a href="/courses/WD(Web Development)">View Courses</a>
+            <a href="/categories/<%= cat._id%>">View Courses</a>
           </div>
         </div>
-        <div class="block_items">
-          <h3>Artificial Intelligence</h3>
-          <div class="items">
-            <div class="item">Algebra</div>
-            <div class="item">Statistics</div>
-            <div class="item">ANN</div>
-            <div class="item">CNN</div>
-            <div class="item">RNN</div>
-          </div>
-          <div class="item_button">
-            <a href="/courses/AI(Artificial Intelligence)">View Courses</a>
-          </div>
-        </div>
-        <div class="block_items">
-          <h3>Machine Learning</h3>
-          <div class="items">
-            <div class="item">Supervised</div>
-            <div class="item">Unsupervised</div>
-            <div class="item">Regression</div>
-            <div class="item">Classification</div>
-            <div class="item">Neural Network</div>
-          </div>
-          <div class="item_button">
-            <a href="/courses/ML(Machine Learning)">View Courses</a>
-          </div>
-        </div>
-        <div class="block_items">
-          <h3>Android Development</h3>
-          <div class="items">
-            <div class="item">OOPs</div>
-            <div class="item">Views</div>
-            <div class="item">Components</div>
-            <div class="item">Lists</div>
-          </div>
-          <div class="item_button" id="extra_margin">
-            <a href="/courses/AD(Android Development)">View Courses</a>
-          </div>
-        </div>
-        <div class="block_items">
-          <h3>Blockchain Development</h3>
-          <div class="items">
-            <div class="item">Bitcoin</div>
-            <div class="item">Ethereum</div>
-            <div class="item">Solidity</div>
-            <div class="item">Cryptocurrency</div>
-            <div class="item">NFTs</div>
-          </div>
-          <div class="item_button" id="extra_margin">
-            <a href="/courses/BC(Blockchain)">View Courses</a>
-          </div>
-        </div>
+        <% } %>
       </div>
     </div>
     <!-- End of content block -->
 
     <!-- Separate view Button -->
     <div class="view_button">
-      <button class="butn">View More</button>
+      <button class="butn"><a href="/categories">View More</a></button>
     </div>
-
-    <!-- Quote section -->
-    <!-- <div class="quote_div">
-        <div class="quote_text">
-            <figure>
-                <blockquote cite="https://www.huxley.net/bnw/four.html">
-                    <p>Learning is more effective when it is an active rather than a passive process.</p>
-                </blockquote>
-                <hr>
-                <figcaption>- Kurt Lewin, <cite>Brave New World</cite></figcaption>
-            </figure>
-        </div>
-        <div class="quote_img">
-            <img src="Images/kl_img.webp" alt="Quote image" class="q_img">
-        </div>
-    </div> -->
 
     <!-- Contact us section -->
     <div

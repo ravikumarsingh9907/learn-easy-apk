@@ -1,0 +1,15 @@
+<h2>Choose Category</h2>
+<div>
+  <% for(let cat of getCategories) {%>
+  <a href="/admin/courses/add/<%=cat._id%>"><%= cat.name%></a>
+  <%} %>
+</div>
+
+<h2>Add Category</h2>
+<form action="/admin/courses/add" method="POST" enctype="multipart/form-data">
+  <label for="image">Image: </label>
+  <input type="file" name="image" accept="image/*" />
+  <label for="category">Name: </label>
+  <input type="text" name="name" />
+  <button type="submit">Submit</button>
+</form>

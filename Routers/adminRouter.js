@@ -6,23 +6,14 @@ const express = require("express");
 const course = require("../models/courses");
 require("../db/database");
 const user = require("../models/admin");
+const Category = require("../models/categories");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
-const { storage } = require("../cloudinary/index");
+const { storage, storage2 } = require("../cloudinary/index");
 const upload = multer({ storage });
+// const upload2 = multer({ storage2 });
 
 const Router = new express.Router();
-
-// creating Categories
-const categories = [
-  "Web Development",
-  "DSA",
-  "Machine Learning",
-  "Blockchain",
-  "Data Science",
-  "Anroid Development",
-  "Artificial Intelligence",
-];
 
 // Levels
 const levels = ["Begginer", "Intermediate", "Advanced"];
@@ -71,9 +62,9 @@ Router.post("/admin/login", async (req, res) => {
 
 Router.get("/admin/signup", (req, res) => {
   if (!req.session.user_id) {
-    return res.status(200).redirect("/admin/login");
+    return res.status(200).render("templates/admin/signup");
   }
-  res.status(500).send({ error: "Already created Account" });
+  res.status(500).send({ error: "Already logged In" });
 });
 
 Router.post("/admin/signup", async (req, res) => {
@@ -109,9 +100,10 @@ Router.get("/admin/courses", loginRequired, async (req, res) => {
   }
 });
 
-Router.get("/admin/courses/add", loginRequired, (req, res) => {
+Router.get("/admin/courses/add", loginRequired, async (req, res) => {
   try {
-    res.render("templates/admin/addCourse", { categories, levels, price });
+    const getCategories = await Category.find({});
+    res.render("templates/admin/chooseCategories", { getCategories });
   } catch {
     res.status(400).send("Something went wrong");
   }
@@ -119,15 +111,49 @@ Router.get("/admin/courses/add", loginRequired, (req, res) => {
 
 Router.post("/admin/courses/add", upload.single("image"), async (req, res) => {
   try {
-    const addCourse = new course(req.body);
-    addCourse.image = req.file.path;
-    await addCourse.save();
-    req.flash("success", `Successfully added new course`);
-    res.status(200).redirect("/admin/courses");
-  } catch (err) {
-    res.status(400).send("Something went wrong", err);
+    const addCategory = new Category(req.body);
+    addCategory.image = req.file.path;
+    await addCategory.save();
+    req.status(200).redirect("/admin/courses/add");
+  } catch {
+    res.status(400).send("Something went wrong at add category");
   }
 });
+
+Router.get("/admin/courses/add/:id", loginRequired, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const getCategory = await Category.findById(id);
+    res.status(200).render("templates/admin/addCourse", {
+      getCategory,
+      price,
+      levels,
+      types,
+    });
+  } catch {
+    res.status(400).send("Something went wrong at getting category");
+  }
+});
+
+Router.post(
+  "/admin/courses/add/:id",
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const getCategory = await Category.findById(id);
+      const addCourse = new course(req.body);
+      addCourse.image = req.file.path;
+      getCategory.courses.push(addCourse);
+      await addCourse.save();
+      await getCategory.save();
+      req.flash("success", `Successfully added new course`);
+      res.status(200).redirect("/admin/courses");
+    } catch (err) {
+      res.status(400).send("Something went wrong", err);
+    }
+  }
+);
 
 // Getting Updating and deleting courses by it's id
 Router.get("/admin/courses/:id", loginRequired, async (req, res) => {
@@ -159,7 +185,6 @@ Router.get("/admin/courses/:id/edit", loginRequired, async (req, res) => {
     const getCourse = await course.findById(id);
     res.status(200).render("templates/admin/editCourse", {
       getCourse,
-      categories,
       levels,
       price,
       types,

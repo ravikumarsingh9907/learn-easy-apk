@@ -3,29 +3,36 @@ const course = require("../models/courses");
 require("../db/database");
 const customer = require("../models/users");
 const review = require("../models/reviews");
+const Categories = require("../models/categories");
 const bcrypt = require("bcrypt");
+const CustomError = require("../errorHandler");
 
 const Router = new express.Router();
 
-const categories = [
-  "Web Development",
-  "DSA",
-  "Machine Learning",
-  "Blockchain",
-  "Data Science",
-  "Anroid Development",
-  "Artificial Intelligence",
-];
-
 const loginRequired = (req, res, next) => {
   if (!req.session.customer_id) {
-    return res.status(404).send({ error: "please Authenticate" });
+    res.status(401).render("templates/errors/authentication");
   }
   next();
 };
 
+const averageRating = (ratings) => {
+  let sum = 0;
+  let avg = 0;
+  for (var i = 0; i < ratings.length; i++) {
+    sum += ratings[i];
+  }
+  avg = sum / ratings.length;
+  return avg;
+};
+
 Router.get("/", async (req, res) => {
-  res.render("templates/user/index");
+  const getCategory = await Categories.find({});
+  const getCategories = [];
+  for (var i = 0; i < 6; i++) {
+    getCategories.push(getCategory[i]);
+  }
+  res.status(200).render("templates/user/index", { getCategories });
 });
 
 // Admin Login Authentication
@@ -55,20 +62,19 @@ Router.post("/login", async (req, res) => {
 
 Router.get("/signup", (req, res) => {
   if (!req.session.customer_id) {
-    return res.status(200).render("templates/user/signup", { categories });
+    return res.status(200).render("templates/user/signup");
   }
   res.status(500).send({ error: "Already created Account" });
 });
 
 Router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password, interest } = req.body;
+    const { name, email, password } = req.body;
     const hashedPass = await bcrypt.hash(password, 12);
     const savedData = new customer({
       name,
       email,
       password: hashedPass,
-      interest,
     });
     await savedData.save();
     req.session.customer_id = savedData._id;
@@ -107,6 +113,26 @@ Router.get("/logout", async (req, res) => {
   res.status(200).redirect("/");
 });
 
+Router.get("/categories", async (req, res) => {
+  try {
+    const getCategories = await Categories.find({});
+    res.status(200).render("templates/user/categories", { getCategories });
+  } catch {
+    res.status(400).send("Couldn't get categories");
+  }
+});
+
+// Category wise page
+Router.get("/categories/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const showCourses = await Categories.findById(id).populate("courses");
+    res.status(200).render("templates/user/catCourse", { showCourses });
+  } catch {
+    console.log("Something went wrong");
+  }
+});
+
 Router.get("/courses", async (req, res) => {
   try {
     const allCourses = await course.find({});
@@ -116,41 +142,46 @@ Router.get("/courses", async (req, res) => {
   }
 });
 
-// Category wise page
-Router.get("/courses/:category", async (req, res) => {
-  try {
-    const category = req.params.category;
-    const showCourses = await course.find({ category });
-    res.status(200).render("templates/user/catCourse", { showCourses });
-  } catch {
-    console.log("Something went wrong");
-  }
-});
-
-Router.post("/course/:id", loginRequired, async (req, res) => {
+Router.post("/courses/:id", loginRequired, async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.session.customer_id;
-    const foundUser = await customer.findById(userId);
-    const foundCourse = await course.findById(id);
-    const addReview = new review(req.body);
+    let foundUser = await customer.findById(userId);
+    let foundCourse = await course.findById(id);
+    let addReview = new review(req.body);
     foundUser.reviews.push(addReview);
-    addReview.user = foundUser;
     foundCourse.reviews.push(addReview);
-    await foundUser.save();
+    addReview.user = foundUser;
     await foundCourse.save();
+    await foundUser.save();
     await addReview.save();
-    res.status(200).redirect(`/course/${id}`);
+    res.status(200).redirect(`/courses/${id}`);
   } catch {
     res.status(400).send("Something went wrong at adding review");
   }
 });
 
-Router.get("/course/:id", async (req, res) => {
-  const { id } = req.params;
-  const populatedReview = await review.find();
-  const getCourse = await course.findById(id).populate("reviews");
-  res.status(200).render("templates/user/course", { getCourse });
+Router.get("/courses/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const getCourse = await course.findById(id).populate("reviews");
+
+    const totalRating = [];
+    for (var i = 0; i < getCourse.reviews.length; i++) {
+      totalRating.push(getCourse.reviews[i].rating);
+    }
+
+    const ratingCount = totalRating.length;
+    const avgRating = averageRating(totalRating);
+
+    res
+      .status(200)
+      .render("templates/user/course", { getCourse, avgRating, ratingCount });
+  } catch {
+    res
+      .status(400)
+      .send({ error: "Something went wrong at getting categories courses" });
+  }
 });
 
 Router.post("/courses/:id/bookmark", loginRequired, async (req, res) => {
