@@ -1,0 +1,51 @@
+<header>
+  <!-- Navbar -->
+  <div class="navigation">
+    <div class="navbar_logo">
+      <a href="/"><img src="/icons/learneasy3.png" class="icon1" /></a>
+      <div class="sidebar" id="sidebar">
+        <div class="top" id="top_cross"><i class="bx bx-menu"></i></div>
+      </div>
+    </div>
+    <div class="navbar_links" id="app">
+      <ul id="searchbtn">
+        <!-- Search box -->
+
+        <li class="search-box" id="search_form">
+          <form action="/search" class="search-form" method="get">
+            <input
+              type="text"
+              id="search-box"
+              placeholder="Search courses..."
+              name="coursename"
+            />
+            <button id="btn" type="button"><i class="bx bx-x"></i></button>
+            <button type="submit"><i class="bx bx-search"></i></button>
+          </form>
+        </li>
+        <!-- End of search box -->
+        <button id="searchBtn">
+          <i class="bx bx-search" id="searchShow"></i>
+        </button>
+        <% if(!currentLoggedIn) {%>
+        <li><a href="/courses" class="nav_li">Resources</a></li>
+        <li><a href="#about" class="nav_li">About</a></li>
+        <li><a href="/contactus" class="nav_li">Contact</a></li>
+        <%} else {%>
+          <li><a href="/courses" class="nav_li">Resources</a></li>
+        <li><a href="#about" class="nav_li">About</a></li>
+        <li><a href="/contactus" class="nav_li">Contact</a></li>
+        <li><a href="/bookmark" class="nav_li">Bookmarks</a></li>
+          <%} %>
+        <li>
+          <% if(!currentLoggedIn) {%>
+          <a href="/login" alt="for log in"><span>Login</span></a>
+          <%} else {%>
+            <a href="/profile" alt="for log in" class="after-login"><span>Profile</span></a>
+            <%} %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+<!-- End of Navbar -->

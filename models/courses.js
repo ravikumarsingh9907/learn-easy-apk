@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const deleteReview = require("./reviews");
 
 const Schema = mongoose.Schema;
 
@@ -54,6 +55,16 @@ const courseSchema = new Schema(
     timestamps: true,
   }
 );
+
+courseSchema.post("findOneAndDelete", async function (docs) {
+  if (docs) {
+    await deleteReview.remove({
+      _id: {
+        $in: docs.reviews,
+      },
+    });
+  }
+});
 
 const course = mongoose.model("Course", courseSchema);
 

@@ -9,9 +9,8 @@ const user = require("../models/admin");
 const Category = require("../models/categories");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
-const { storage, storage2 } = require("../cloudinary/index");
+const { storage } = require("../cloudinary/index");
 const upload = multer({ storage });
-// const upload2 = multer({ storage2 });
 
 const Router = new express.Router();
 
@@ -29,6 +28,16 @@ const loginRequired = (req, res, next) => {
     return res.status(404).send({ error: "please Authenticate" });
   }
   next();
+};
+
+const averageRating = (ratings) => {
+  let sum = 0;
+  let avg = 0;
+  for (var i = 0; i < ratings.length; i++) {
+    sum += ratings[i];
+  }
+  avg = sum / ratings.length;
+  return avg;
 };
 
 Router.get("/admin", (req, res) => {
@@ -93,8 +102,8 @@ Router.post("/admin/logout", async (req, res) => {
 // Getting all courses and adding new course Endpoints
 Router.get("/admin/courses", loginRequired, async (req, res) => {
   try {
-    const courses = await course.find({});
-    res.status(200).render("templates/admin/index", { courses });
+    const allCourses = await course.find({});
+    res.status(200).render("templates/admin/index", { allCourses });
   } catch (e) {
     res.status(400).send("Something went wrong");
   }
@@ -114,7 +123,7 @@ Router.post("/admin/courses/add", upload.single("image"), async (req, res) => {
     const addCategory = new Category(req.body);
     addCategory.image = req.file.path;
     await addCategory.save();
-    req.status(200).redirect("/admin/courses/add");
+    res.status(200).redirect(`/admin/courses/add/${addCategory._id}`);
   } catch {
     res.status(400).send("Something went wrong at add category");
   }
@@ -159,25 +168,48 @@ Router.post(
 Router.get("/admin/courses/:id", loginRequired, async (req, res) => {
   try {
     const { id } = req.params;
-    const getCourse = await course.findById(id);
-    res.status(200).render("templates/admin/course", { getCourse });
+    const getCourse = await course.findById(id).populate("reviews");
+
+    const totalRating = [];
+    const totalReview = [];
+    for (var i = 0; i < getCourse.reviews.length; i++) {
+      totalRating.push(getCourse.reviews[i].rating);
+      totalReview.push(getCourse.reviews[i].review);
+    }
+
+    const ratingCount = totalRating.length;
+    const reviewCount = totalReview.length;
+
+    // calculating average
+    const avgRating = averageRating(totalRating).toFixed(2);
+
+    res.status(200).render("templates/admin/course", {
+      getCourse,
+      ratingCount,
+      reviewCount,
+      avgRating,
+    });
   } catch {
     res.status(400).render("Something went wrong");
   }
 });
 
-Router.put("/admin/courses/:id", upload.single("image"), async (req, res) => {
-  try {
-    const { id } = req.params;
-    const getCourse = await course.findByIdAndUpdate(id, req.body);
-    getCourse.image = req.file.path;
-    await getCourse.save();
-    req.flash("success", `Successfully updated your course`);
-    res.status(200).redirect("/admin/courses");
-  } catch {
-    res.status(400).render("Something went wrong");
+Router.put(
+  "/admin/courses/:id/edit",
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const getCourse = await course.findByIdAndUpdate(id, req.body);
+      getCourse.image = req.file.path;
+      await getCourse.save();
+      req.flash("success", `Successfully updated your course`);
+      res.status(200).redirect("/admin/courses");
+    } catch {
+      res.status(400).render("Something went wrong");
+    }
   }
-});
+);
 
 Router.get("/admin/courses/:id/edit", loginRequired, async (req, res) => {
   try {

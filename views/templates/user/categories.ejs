@@ -1,26 +1,33 @@
-<!-- Content block -->
-<div class="content_blocks" data-aos="fade-up" data-aos-duration="1000">
-  <div class="main_content" id="resource">
-    <h2>Start Learning</h2>
-    <p>Get all resources at learnSmart.com</p>
-  </div>
-  <div class="inner">
-    <% for(var cat of getCategories) { %>
-    <div class="block_items">
-      <h3><%= cat.name%></h3>
-      <div class="items">
-        <div class="item">Array</div>
-        <div class="item">Linked list</div>
-        <div class="item">Stack</div>
-        <div class="item">Queue</div>
-        <div class="item">Tree</div>
-        <div class="item">Graph</div>
+<%- include("../../partials/head")%>
+<body>
+  <%- include("../../partials/navbar")%>
+  <!-- Course blocks -->
+  <div class="content_blocks">
+      <div class="main_content" id="resource">
+          <h2>Get a broad selection of courses</h2>
       </div>
-      <div class="item_button">
-        <a href="/courses/<%= cat._id%>">View Courses</a>
+      <div class="inner_blocks">
+          <!-- Card 7 -->
+          <% for(var crs of getCategories) {%> 
+            <div class="card">
+              <div class="card_img">
+                  <a href="/categories/<%= crs._id%>">
+                      <img src="<%= crs.image%>" class="card-img" alt=" ">
+                  </a>
+              </div>
+              <div class="card_body">
+                  <h3 class="card_title"><%= crs.name%></h3>
+                  <p class="card_text">
+                    This category is related to <%= crs.name%>, you can view courses by
+                    clicking on Explore courses. And can grab details about courses.
+                  </p>
+                  <a href="/categories/<%= crs._id%>" class="btn">Explore courses</a>
+              </div>
+          </div>
+            <%} %>
       </div>
-    </div>
-    <% } %>
   </div>
-</div>
-<!-- End of content block -->
+  
+  <%- include("../../partials/footer")%>
+</body>
+</html>

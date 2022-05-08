@@ -1,0 +1,32 @@
+<%- include("../../partials/head")%>
+<body>
+    <%- include("../../partials/navbar")%>
+    <!-- End of Header -->
+    <h2 class="all-course-heading">Bookmarks</h2>
+
+    <!-- Content blocks -->
+    <div class="main_blocks">
+        <% for(var crs of foundUser.Bookmark) {%>
+        <div class="card mb-3">
+            <div class="col-sm-6">
+                <div class="col-md-4 img-class">
+                    <img src="<%=crs.image%>" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md">
+                    <div class="card-body">
+                        <h4><%=crs.title%></h4>
+                        <p class="platform"><%=crs.platform%></p>
+                        <p class="type tag"><%=crs.price%>, <%=crs.type%></p>
+                        <a href="/courses/<%=crs._id%>">View details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%} %>
+    </div>
+    </div> 
+    <!-- End of content block -->
+    <%- include("../../partials/footer")%>
+</body>
+
+</html>

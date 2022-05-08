@@ -11,7 +11,7 @@ const Router = new express.Router();
 
 const loginRequired = (req, res, next) => {
   if (!req.session.customer_id) {
-    res.status(401).render("templates/errors/authentication");
+    res.status(401).send("Please Login First.......");
   }
   next();
 };
@@ -24,6 +24,15 @@ const averageRating = (ratings) => {
   }
   avg = sum / ratings.length;
   return avg;
+};
+
+const checkBookmark = (course, user) => {
+  for (var i = 0; i < user.length; i++) {
+    if (user[i]._id === course._id) {
+      return course;
+    }
+  }
+  return user.push(course);
 };
 
 Router.get("/", async (req, res) => {
@@ -85,26 +94,39 @@ Router.post("/signup", async (req, res) => {
 });
 
 Router.get("/bookmark", loginRequired, async (req, res) => {
-  const id = req.session.customer_id;
-  const foundUser = await customer.findById(id).populate("Bookmark");
-  console.log(foundUser);
-  res.status(200).render("templates/user/customer", { foundUser });
+  try {
+    const id = req.session.customer_id;
+    const foundUser = await customer.findById(id).populate("Bookmark");
+    res.status(200).render("templates/user/bookmark", { foundUser });
+  } catch {
+    res.status(400).send("Something went wrong at bookmark");
+  }
 });
 
 Router.get("/search", async (req, res) => {
   try {
     let searchCourse = req.query.coursename;
     searchCourse = searchCourse.toLowerCase();
-    const showCourses = await course.find({
+    const allCourses = await course.find({
       $or: [
         { title: { $regex: req.query.coursename } },
-        { category: { $regex: req.query.coursename } },
         { tags: { $regex: searchCourse } },
       ],
     });
-    res.status(200).render("templates/user/catCourse", { showCourses });
+    res.status(200).render("templates/user/allcourses", { allCourses });
   } catch {
     res.status(400).send("Something went wrong at search");
+  }
+});
+
+Router.get("/profile", loginRequired, async (req, res) => {
+  try {
+    const foundUser = await customer
+      .findById(req.session.customer_id)
+      .populate("Bookmark");
+    res.status(200).render("templates/user/profile", { foundUser });
+  } catch {
+    res.status(400).send("Couldn't able to fetch your profile");
   }
 });
 
@@ -164,19 +186,32 @@ Router.post("/courses/:id", loginRequired, async (req, res) => {
 Router.get("/courses/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const getCourse = await course.findById(id).populate("reviews");
+    const getCourse = await course.findById(id).populate({
+      path: "reviews",
+      populate: { path: "user", model: "customers" },
+    });
+    console.log(getCourse);
 
+    // counting total number of rating and reviews
     const totalRating = [];
+    const totalReview = [];
     for (var i = 0; i < getCourse.reviews.length; i++) {
       totalRating.push(getCourse.reviews[i].rating);
+      totalReview.push(getCourse.reviews[i].review);
     }
 
     const ratingCount = totalRating.length;
-    const avgRating = averageRating(totalRating);
+    const reviewCount = totalReview.length;
 
-    res
-      .status(200)
-      .render("templates/user/course", { getCourse, avgRating, ratingCount });
+    // calculating average
+    const avgRating = averageRating(totalRating).toFixed(2);
+
+    res.status(200).render("templates/user/course", {
+      getCourse,
+      avgRating,
+      ratingCount,
+      reviewCount,
+    });
   } catch {
     res
       .status(400)
@@ -184,14 +219,16 @@ Router.get("/courses/:id", async (req, res) => {
   }
 });
 
-Router.post("/courses/:id/bookmark", loginRequired, async (req, res) => {
+Router.post("/course/:id", loginRequired, async (req, res) => {
   try {
     const { id } = req.params;
     const foundCourse = await course.findById(id);
-    const foundUser = await customer.findById(req.session.customer_id);
+    const foundUser = await customer
+      .findById(req.session.customer_id)
+      .populate("Bookmark");
     foundUser.Bookmark.push(foundCourse);
-    foundUser.save();
-    res.status(200).redirect(`/course/${id}`);
+    await foundUser.save();
+    res.status(200).redirect(`/courses/${id}`);
   } catch {
     res.status(400).send("Something went wrong");
   }

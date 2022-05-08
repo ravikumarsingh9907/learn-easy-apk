@@ -1,113 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Courses</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+
+     <!-- Favicon icon link -->
+     <link rel = "icon" type="image/png" href = "/icons/title.png">
 
     <!-- CSS link -->
-    <link rel="stylesheet" href="/css/addcourse.css" />
+    <link rel="stylesheet" href="/css/addcourse.css">
 
-    <!-- Favicon icon link -->
-    <link rel="icon" type="image/png" href="/icons/title.png" />
+    <!-- Google fonts link -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
-    <!-- Google font link-->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
+    
+    <!-- Boxicon link -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<body>
+
+    <!-- Header -->
     <header>
-      <!-- Navbar -->
-      <div class="navigation">
-        <div class="navbar_logo">
-          <a href="/admin/courses"
-            ><img src="/icons/LS_logo.png" class="icon1"
-          /></a>
+        <!-- Navbar -->
+        <div class="navigation">
+            <div class="navbar_logo">
+                <a href="/"><img src="/icons/learneasy3.png" class="icon1"/></a>
+                <div class="sidebar" id="sidebar">
+                    <div class="top" id="top_cross"><i class='bx bx-menu'></i></div>
+                </div>
+            </div>
+            <div class="navbar_links" id="app">
+                <ul id="searchbtn">
+                    <!-- Search box -->
+                        
+                    
+                    <li class="search-box" id="search_form">
+                        <form action="" class="search-form" method="get" >
+                            <input type="text" name="query" id="search-box" placeholder="Search courses...">
+                            <button id="btn" type="button"><i class='bx bx-x'></i></button>
+                            <button type="submit"><i class='bx bx-search'></i></button>
+                        </form>
+                    </li>
+                    <!-- End of search box -->
+                    <button id="searchBtn">
+                        <i class='bx bx-search' id="searchShow"></i>
+                    </button>
+                    <li><form action="/admin/logout" method="post">
+                        <button class="after-login"><span>Logout</span></button>
+                      </form></li>
+                </ul>
+            </div>
         </div>
-      </div>
     </header>
+    <!-- End of Navbar -->
 
-    <h2>Add Courses</h2>
-
-    <div class="form_div">
-      <!-- Admin form -->
-      <form
-        action="/admin/courses/<%=getCourse._id%>?_method=PUT"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <div class="form_item">
-          <label for="course">Course</label>
-          <input type="text" id="course" name="title" required value="<%= getCourse.title%>" />
+    <div class="form">
+        <div class="form-div">
+            <h2> Courses</h2>
+            <!-- Admin form -->
+            <form action="/admin/courses/<%= getCourse._id%>/edit?_method=PUT" method="POST" class="inputForm" enctype="multipart/form-data">
+                <div class="input-div">
+                    <div class="left-input">
+                        <div class="form_item">
+                            <label for="course">Course: </label>
+                            <input type="text" id="course" name="title" placeholder="Choose Course" required value="<%= getCourse.title%>">
+                        </div>
+                        <div class="form_item">
+                            <label for="type">Type: </label>
+                            <select name="type" id="type" required>
+                              <% for (let ty of types) {%>
+                                <option value="<%= ty %>" <%= getCourse.type === ty ? "selected" : ""%>><%= ty%></option>
+                              <%} %>
+                            </select>
+                        </div>
+                        <div class="form_item">
+                            <label for="platform">Platform: </label>
+                            <input type="text" id="platform" placeholder="Choose a platform" required value="<%= getCourse.platform%>">
+                        </div>
+                        <div class="form_item">
+                            <label for="level">Level</label>
+                            <select name="level" id="level" required>
+                              <% for (let Lvl of levels) {%>
+                                <option value="<%= Lvl %>" <%= getCourse.level === Lvl ? "selected" : ""%>><%= Lvl%></option>
+                              <%} %>
+                            </select>
+                        </div>
+                        <div class="form_item">
+                          <label for="url">Course URL: </label>
+                          <input type="text" id="url" name="url" name="url" value="<%= getCourse.url%>"/>
+                        </div>
+                    </div>
+                    <div class="right-input">
+                        <div class="form_item">
+                            <label for="price">Price:</label>
+                            <select name="price" id="price" required>
+                              <% for (let prc of price) {%>
+                                <option value="<%= prc %>" <%= getCourse.price === prc ? "selected" : ""%>><%= prc%></option>
+                              <%} %>
+                            </select>
+                        </div>
+                        <div class="form_item">
+                            <label for="prerequisite">Prerequisite:</label>
+                            <textarea id="prerequisite" name="prerequisites" rows="3" cols="33" placeholder="Write prerequisite..." required><%= getCourse.prerequisites%></textarea>
+                        </div>
+                        <div class="form_item">
+                            <label for="description">Description: </label>
+                            <textarea id="description" name="description" rows="3" cols="33" placeholder="Write description..." required><%= getCourse.description%></textarea>
+                        </div>
+                        <div class="form_item">
+                          <label for="tags">Course Tags: </label>
+                          <input type="text" id="tags" name="tags" value="<%=getCourse.tags%>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_item">
+                    <input type="file" name="image" accept="image/*" class="file" />
+                </div>
+                <div class="form_button" id="button">
+                    <button type="submit" class="add-course">Edit</button>
+                    <button type="submit" class="cancel-course"> <a href="/admin/courses">Cancel</a> </button>
+                </div>
+            </form>
         </div>
-        <div class="form_item">
-          <label for="type">Type</label>
-          <select name="type" id="type" required>
-            <% for (let ty of types) {%>
-              <option value="<%= ty %>" <%= getCourse.type === ty ? "selected" : ""%>><%= ty%></option>
-            <%} %>
-          </select>
-        </div>
-        <div class="form_item">
-          <label for="platform">Platform</label>
-          <input type="text" id="platform" name="platform" required value="<%= getCourse.platform%>"/>
-        </div>
-        <div class="form_item">
-          <label for="price">Availability: </label>
-          <select name="price" id="price" required>
-            <% for (let prc of price) {%>
-              <option value="<%= prc %>" <%= getCourse.price === prc ? "selected" : ""%>><%= prc%></option>
-            <%} %>
-          </select>
-        </div>
-        <div class="form_item">
-          <label for="level">Level</label>
-          <select name="level" id="level" required>
-            <option value="">Choose level</option>
-            <% for (let Lvl of levels) {%>
-              <option value="<%= Lvl %>" <%= getCourse.level === Lvl ? "selected" : ""%>><%= Lvl%></option>
-            <%} %>
-          </select>
-        </div>
-        <div class="form_item">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            rows="5"
-            cols="33"
-            placeholder="Write description..."
-            name="description"
-          ><%= getCourse.description%></textarea>
-        </div>
-        <div class="form_item">
-          <label for="prerequisite">Prerequisite</label>
-          <textarea
-            id="prerequisite"
-            rows="5"
-            cols="33"
-            placeholder="Write prerequisite..."
-            name="prerequisites"
-          ><%= getCourse.prerequisites%></textarea>
-        </div>
-        <div class="form_item">
-          <label for="tags">Course Tags: </label>
-          <input type="text" id="tags" name="tags" value="<%=getCourse.tags%>"/>
-        </div>
-        <div class="form_item">
-          <label for="url">Course URL: </label>
-          <input type="text" id="url" name="url" name="url" value="<%= getCourse.url%>"/>
-        </div>
-        <div class="form_item">
-          <input type="file" accept="image/*" class="file" name="image" />
-        </div>
-        <div class="form_item" id="button">
-          <button type="submit">Add</button>
-          <button type="submit"><a href="/admin/courses">Cancel</a></button>
-        </div>
-      </form>
     </div>
-  </body>
+
+   
+    <footer class="footer">
+        <div class="footer_inner">
+            <div class="foot_logo">
+                <img src="/icons/learneasy3.png" alt="Learn Smart logo" class="brain-logo">
+            </div>
+            <div class="links_container">
+                <div class="resources">
+                    <h4>Explore</h4>
+                    <div class="links">
+                        <a href="index.html">Home</a>
+                        <a href="courses.html">Resources</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="#about">About</a>
+                    </div>
+                </div>
+                <div class="community_link">
+                    <h4>Communities</h4>
+                    <div class="communities">
+                        <a href="https://dev.to/">DEV</a>
+                        <a href="https://hashnode.com/">Hashnode</a>
+                        <a href="https://www.indiehackers.com/">Indie Hackers</a>
+                        <a href="https://stackoverflow.com/">StackOverflow</a>
+                    </div>
+                </div>
+                <div class="social_div">
+                    <h4>Follow us on</h4>
+                    <div class="icon_links">
+                        <a href="#facebook"><i class='bx bxl-facebook-circle'></i></a>
+                        <a href="#instagram"><i class='bx bxl-instagram'></i></a>
+                        <a href="#twitter"><i class='bx bxl-twitter'></i></a>
+                        <a href="#github"><i class='bx bxl-github'></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright_div">
+            <p>Copyrights ©2022. All rights are reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
 </html>

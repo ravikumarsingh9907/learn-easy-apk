@@ -1,30 +1,232 @@
-<img src="<%= getCourse.image%>" alt="Logo" />
-<h1><%=getCourse.title%></h1>
-<br />
-<h4>Platform: <%=getCourse.platform%></h4>
-<br />
-<a href="<%= getCourse.url%>" target="_blank">Go to the course</a>
-<br />
-<form action="/courses/<%=getCourse._id%>/bookmark" method="POST">
-  <button>Bookmark</button>
-</form>
-<br />
-<div>
-  <h2><%= avgRating%> (<%= ratingCount%>)</h2>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Structure-Gfg</title>
 
-<div class="container">
-  <% for(let crs of getCourse.reviews) {%>
-  <h5>Rating: <%=crs.rating %></h5>
-  <p>Review: <%=crs.review %></p>
-  <%} %>
-</div>
+    <!-- Bootsrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
 
-<br />
-<form action="/courses/<%=getCourse._id%>" method="POST">
-  <label for="rate">Rating:</label>
-  <input type="range" min="1" max="5" name="rating" id="rate" />
-  <label for="review">Review:</label>
-  <textarea name="review" id="review" cols="30" rows="5"></textarea>
-  <button>Submit</button>
-</form>
+    <!-- CSS link -->
+    <link rel="stylesheet" href="/css/course.css" />
+
+    <!-- Stars Link -->
+    <link rel="stylesheet" href="/css/stars.css" />
+
+    <!-- Title link -->
+    <link rel="icon" type="image/png" href="/icons/title.png" />
+
+    <!-- Google font link-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Boxicon link -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <!-- Navbar -->
+      <div class="navigation">
+        <div class="navbar_logo">
+          <a href="/"><img src="/icons/learneasy3.png" class="icon1" /></a>
+          <div class="sidebar" id="sidebar">
+            <div class="top" id="top_cross"><i class="bx bx-menu"></i></div>
+          </div>
+        </div>
+        <div class="navbar_links" id="app">
+          <ul id="searchbtn">
+            <!-- Search box -->
+            <li class="search-box" id="search_form">
+              <form action="" class="search-form" method="get">
+                <input
+                  type="text"
+                  name="query"
+                  id="search-box"
+                  placeholder="Search courses..."
+                />
+                <button id="btn" type="button"><i class="bx bx-x"></i></button>
+                <button type="submit"><i class="bx bx-search"></i></button>
+              </form>
+            </li>
+            <!-- End of search box -->
+            <button id="searchBtn">
+              <i class="bx bx-search" id="searchShow"></i>
+            </button>
+            <li><a href="/courses" class="nav_li">Resources</a></li>
+            <li><a href="/#about" class="nav_li">About</a></li>
+            <li><a href="/contactus" class="nav_li">Contact</a></li>
+            <li>
+              <% if(!currentLoggedIn) {%>
+              <a href="/login" alt="for log in"><span>Login</span></a>
+              <%} else {%>
+              <a href="/profile" alt="for log in" class="after-login"
+                ><span>Profile</span></a
+              >
+              <%} %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- End of Navbar -->
+
+    <!-- Main content-->
+    <div class="main-content">
+      <div class="card-body">
+        <h2><%= getCourse.title%></h2>
+        <p class="text">
+          This course contains detailed tutorials on different data structures
+          (DS) with topic-wise problem. Advance Career by Learning Algorithms
+          through Programming and Problem-Solving skills. Apply the
+          newly-learned algorithmic techniques to real-life problems, such as
+          analyzing a huge social network and more.
+        </p>
+        <% if( ratingCount == 0) { %>
+        <p class="rating-reviews">
+          <span class="rating-number">0</span>
+          <span class="ratings"> <%= ratingCount%> ratings, </span
+          ><span class="reviews"> <%= reviewCount%> reviews</span>
+        </p>
+        <% } else { %>
+        <p class="rating-reviews">
+          <span class="rating-number"><%= avgRating%></span
+          ><span class="ratings"> <%= ratingCount%> ratings, </span
+          ><span class="reviews"> <%= reviewCount%> reviews</span>
+        </p>
+        <% } %>
+        <p class="level"><%= getCourse.level%></p>
+        <p class="type"><%= getCourse.price%>, <%= getCourse.platform%></p>
+        <div class="buttons-container">
+          <a href="<%= getCourse.url%>" class="course-btn">Go to course</a>
+          <form action="/course/<%= getCourse._id%>" method="POST">
+            <button class="bookmark-btn">Bookmark</button>
+          </form>
+        </div>
+      </div>
+      <div class="platform">
+        <img src="<%= getCourse.image%>" alt="<%= getCourse.platform%>" />
+      </div>
+    </div>
+    <!-- End of content black -->
+
+    <!-- Review Section -->
+    <div class="feedback-container">
+      <div class="review-container">
+        <h2 class="review-heading">Reviews</h2>
+        <% for(let crs of getCourse.reviews) {%>
+        <div class="review-content">
+          <h3 class="reviewer-name"><%= crs.user.name%></h3>
+          <p
+            class="starability-result reviewer-stars"
+            data-rating="<%= crs.rating%>"
+          >
+            Rated: <%= crs.rating%>
+          </p>
+          <p class="reviewer-review"><%=crs.review %></p>
+        </div>
+        <%} %>
+      </div>
+      <form
+        action="/courses/<%=getCourse._id%>"
+        method="POST"
+        class="feedback-form-container"
+      >
+        <h2 class="review-heading-feedback">Leave a Review</h2>
+        <div class="rating-content">
+          <fieldset class="starability-basic">
+            <legend>Rate:</legend>
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="rating"
+              value="0"
+              checked
+              aria-label="No rating."
+            />
+            <input type="radio" id="first-rate1" name="rating" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="rating" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="rating" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="rating" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="rating" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="feedback-content">
+          <label for="review">Feedback:</label>
+          <textarea name="review" id="review" cols="30" rows="5"></textarea>
+        </div>
+        <div class="submit-btn-container">
+          <button>Submit</button>
+        </div>
+      </form>
+    </div>
+    <!-- End of review section -->
+
+    <!-- Footer div -->
+    <footer class="footer">
+      <div class="footer_inner">
+        <div class="foot_logo">
+          <img
+            src="/icons/learneasy3.png"
+            alt="Learn Smart logo"
+            class="brain-logo"
+          />
+        </div>
+        <div class="links_container">
+          <div class="resources">
+            <h4>Explore</h4>
+            <div class="links">
+              <a href="index.html">Home</a>
+              <a href="courses.html">Resources</a>
+              <a href="contact.html">Contact</a>
+              <a href="#about">About</a>
+            </div>
+          </div>
+          <div class="community_link">
+            <h4>Communities</h4>
+            <div class="communities">
+              <a href="https://dev.to/">DEV</a>
+              <a href="https://hashnode.com/">Hashnode</a>
+              <a href="https://www.indiehackers.com/">Indie Hackers</a>
+              <a href="https://stackoverflow.com/">StackOverflow</a>
+            </div>
+          </div>
+          <div class="social_div">
+            <h4>Follow us on</h4>
+            <div class="icon_links">
+              <a href="#facebook"><i class="bx bxl-facebook-circle"></i></a>
+              <a href="#instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#github"><i class="bx bxl-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright_div">
+        <p>Copyrights ©2022. All rights are reserved.</p>
+      </div>
+    </footer>
+    <!-- End of footer div -->
+
+    <!-- <a href="admin_form.html">Admin form</a> -->
+    <script src="../js/script.js"></script>
+  </body>
+</html>

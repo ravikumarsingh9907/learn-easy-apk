@@ -1,0 +1,47 @@
+<%- include("../../partials/head")%>
+<body>
+    <%- include("../../partials/navbar")%>
+<div class="profile-container">
+    <div class="profile-details">
+      <div class="profile-img">
+        <i class="bx bxs-user-circle"></i>
+      </div>
+      <div class="profile-name">
+        <p><%= foundUser.name%></p>
+      </div>
+      <div class="logout-btn">
+        <a href="/logout" alt="for log in">Logout</a>
+      </div>
+    </div>
+  </div>
+  <div class="bookmark-container">
+    <div class="heading">
+      <h4>Bookmarks</h4>
+    </div>
+     <!-- Content blocks -->
+     <div class="main_blocks">
+      <% for(var crs of foundUser.Bookmark) {%>
+      <div class="card mb-3">
+          <div class="col-sm-6">
+              <div class="col-md-4 img-class">
+                  <img src="<%=crs.image%>" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md">
+                  <div class="card-body">
+                      <h4><%=crs.title%></h4>
+                      <p class="platform"><%=crs.platform%></p>
+                      <p class="type tag"><%=crs.price%>, <%=crs.type%></p>
+                      <a href="/courses/<%=crs._id%>">View details</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <%} %>
+  </div>
+  </div> 
+  <!-- End of content block -->
+  </div>
+  <%- include("../../partials/footer")%>
+  <script src="/js/script.js"></script>
+</body>
+</html>

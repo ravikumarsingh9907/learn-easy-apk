@@ -1,0 +1,210 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Scrollbar style */
+::-webkit-scrollbar-thumb {
+    background-color: #004f70;
+    border-radius: 5px;
+}
+body {
+    font-family: "Poppins",sans-serif;
+    overflow-x: hidden;
+}
+
+
+
+/* Heading */
+.all-course-heading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 40px;
+    font-family: SuisseWorks,Georgia,Times,times new roman,serif,apple color emoji,segoe ui emoji,segoe ui symbol;
+    color: #004f7c;
+    font-weight: 600;
+}
+
+/* Content blocks */
+.main_blocks {
+    width:70%;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+}
+.card {
+    border: none; 
+}
+.col-sm-6 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-shadow: 4px 4px 20px 0.2px #cecece;
+    transition: all 0.4s ease-out;
+}
+.col-sm-6:hover {
+    box-shadow: 1px 4px 20px 0.2px #ababab;
+}
+.col-md-4 {
+    padding: 0 2rem;
+} 
+.img-class {
+    /* width: 20%;
+    display: block; */
+    width:217px;
+    height: 100% !important;
+    overflow: hidden;
+} 
+.col-md-4 a {
+    height: 100%;
+}
+.col-md {
+    width: 100%;
+}
+.card-body {
+    border-radius:0;
+    padding-left: 2rem;
+    width: 100%;
+    background-image: linear-gradient(to left, #2cbada, #22ced0, #70ddc1, #92f399, #d2eb80);
+}
+
+.img-fluid{
+    height: 100% !important;
+}
+.card-body h4 {
+    font-size: 25px;
+    color: #033d56;
+    font-weight: medium;
+    margin: 0;
+}
+.card-body .platform {
+    /* background-color: green; */
+    font-style: italic;
+    font-size: 16px;
+    color: #717171;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.card-body .type {
+    font-size: 16px;
+    color: #717171;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-body a {
+    width: max-content;
+    text-decoration: none;
+    padding: .5rem .8rem;
+    margin: 2rem;
+    margin-left: 0;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+    background-color: #45b7d1;
+}
+.card-body a:hover {
+    color: #fff;
+    background-color:#138f98;
+}
+/* End of content block */
+
+
+
+/* 280px to 480px */
+@media (min-width:280px) and (max-width:480px){
+    .main_blocks {
+        width: 80%;
+    }
+    .col-sm-6{
+        height:306px !important;
+        flex-direction: column !important; 
+    }
+    .img-class{
+        width:217px;
+        height: 100% !important;
+    }
+    .card-body {
+        border-radius:0;
+        width: 100% !important;
+    }
+    .card-body h4{
+        font-size:19px;
+    }
+    .img-fluid{
+        height: 100%;
+        object-fit: contain;
+    }  
+}
+
+/* 481px to 769px */
+@media (min-width:481px) and (max-width:768px){
+    
+    .main_blocks {
+        width:500px;
+    }
+    
+    .img-class{
+        width:217px !important;
+        height: 100% !important;
+    }
+    .card-body {
+        border-radius:0;
+        width: 100% !important;
+    }
+    .img-fluid{
+        height: 100% !important;
+        object-fit: contain;
+    }
+    .card-body h4 {
+        font-size: 16px !important;
+    }
+    
+}
+
+/* 769px to 1024px */
+@media (min-width:769px) and (max-width:1024px){
+     
+    .main_blocks {
+        width:640px;
+    }
+    
+    .img-class{
+        width:217px;
+        height: 100% !important;
+    }
+    .card-body {
+        border-radius:0;
+        width: 100% !important;
+    }
+    .img-fluid{
+        height: 100% !important;
+        object-fit: contain;
+    }
+   
+}
+
+/* 1025px to 1200px */
+@media (min-width: 1025px) and (max-width:1200px){
+    .main_blocks {
+        width:540px;
+    }
+    
+    .img-class{
+        width:217px;
+        height: 100% !important;
+    }
+    .card-body {
+        border-radius:0;
+        width: 100% !important;
+    }
+    .img-fluid{
+        height: 100% !important;
+        object-fit: contain;
+    }
+}

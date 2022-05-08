@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
+
+*{
+  margin: 0%;
+  padding: 0%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.profile-container {
+    padding-top: 2rem;
+    background-image: linear-gradient(to left, #2cbada, #22ced0, #70ddc1, #92f399, #d2eb80);
+    height: 60vh;
+  }
+  
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    max-width: 100%;
+  }
+  
+  .profile-img,
+  .profile-name {
+    width: 100%;
+  }
+  
+  .profile-img i {
+    font-size: 10rem;
+    color: #fff;
+  }
+  
+  .profile-name p {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+  }
+  
+  .logout-btn {
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  .logout-btn a {
+    text-decoration: blink;
+    font-size: 22px;
+    color: #0b6b94;
+    background-color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+  
+  .bookmark-container {
+    margin-top: 1rem;
+    color: #004f7c;
+  }
+  
+  .bookmark-container .heading {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .bookmark-container .heading h4 {
+    font-size: 25px;
+  }
+  

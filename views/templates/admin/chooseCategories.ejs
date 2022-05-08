@@ -1,15 +1,94 @@
-<h2>Choose Category</h2>
-<div>
-  <% for(let cat of getCategories) {%>
-  <a href="/admin/courses/add/<%=cat._id%>"><%= cat.name%></a>
-  <%} %>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Choose Categories</title>
 
-<h2>Add Category</h2>
-<form action="/admin/courses/add" method="POST" enctype="multipart/form-data">
-  <label for="image">Image: </label>
-  <input type="file" name="image" accept="image/*" />
-  <label for="category">Name: </label>
-  <input type="text" name="name" />
-  <button type="submit">Submit</button>
-</form>
+    <!-- Boxicon link -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- AOS cdn -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/css/chooseCategories.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <!-- Navbar -->
+      <div class="navigation">
+        <div class="navbar_logo">
+          <a href="/"><img src="/icons/learneasy3.png" class="icon1" /></a>
+          <div class="sidebar" id="sidebar">
+            <div class="top" id="top_cross"><i class="bx bx-menu"></i></div>
+          </div>
+        </div>
+
+        <div class="navbar_links" id="app">
+          <ul>
+            <li class="search-box">
+              <form action="" class="search-form" method="get" id="search_form">
+                <input
+                  type="text"
+                  name="query"
+                  id="search-box"
+                  placeholder="Search courses..."
+                />
+                <button id="btn" type="button"><i class="bx bx-x"></i></button>
+                <button type="submit"><i class="bx bx-search"></i></button>
+              </form>
+            </li>
+            <li><a href="/admin/courses" class="nav_li">Cancel</a></li>
+            <li class="nav_li add-cat">Add Category</li>
+            <li>
+              <a href="/logout" alt="for log in"><span>Logout</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- End of Navbar -->
+
+    <div class="container">
+      <div class="heading">
+        <h2>Choose Category</h2>
+      </div>
+      <div class="categories-container">
+        <% for(let cat of getCategories) {%>
+        <div class="category">
+            <a href="/admin/courses/add/<%=cat._id%>"><%= cat.name%></a>
+        </div>
+        <%} %>
+      </div>
+    </div>
+
+    <!-- Add Category section -->
+    <div class="backgroun-cover"></div>
+    <div class="add-category-container">
+      <div class="add-category-heading">
+        <h2>Add Category</h2>
+      </div>
+      <form class="category-content" action="/admin/courses/add" method="POST" enctype="multipart/form-data">
+        <div class="name-input">
+          <label for="name" class="label-for">Name </label>
+          <input type="text" name="name" id="name" />
+        </div>
+        <div class="name-input">
+          <label for="image" class="label-for">Upload Image </label>
+          <input type="file" name="image" id="image" />
+        </div>
+        <div class="submit-btn">
+          <button>Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="/js/chooseCategories.js"></script>
+  </body>
+</html>
