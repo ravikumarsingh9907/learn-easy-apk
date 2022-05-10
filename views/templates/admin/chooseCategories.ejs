@@ -62,7 +62,7 @@
       <div class="categories-container">
         <% for(let cat of getCategories) {%>
         <div class="category">
-            <a href="/admin/courses/add/<%=cat._id%>"><%= cat.name%></a>
+          <a href="/admin/courses/add/<%=cat._id%>"><%= cat.name%></a>
         </div>
         <%} %>
       </div>
@@ -74,14 +74,19 @@
       <div class="add-category-heading">
         <h2>Add Category</h2>
       </div>
-      <form class="category-content" action="/admin/courses/add" method="POST" enctype="multipart/form-data">
+      <form
+        class="category-content"
+        action="/admin/courses/add"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <div class="name-input">
           <label for="name" class="label-for">Name </label>
-          <input type="text" name="name" id="name" />
+          <input type="text" name="name" id="name" required />
         </div>
         <div class="name-input">
           <label for="image" class="label-for">Upload Image </label>
-          <input type="file" name="image" id="image" />
+          <input type="file" name="image" id="image" required />
         </div>
         <div class="submit-btn">
           <button>Submit</button>

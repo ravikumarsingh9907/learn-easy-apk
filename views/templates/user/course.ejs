@@ -111,9 +111,22 @@
         <p class="type"><%= getCourse.price%>, <%= getCourse.platform%></p>
         <div class="buttons-container">
           <a href="<%= getCourse.url%>" class="course-btn">Go to course</a>
-          <form action="/course/<%= getCourse._id%>" method="POST">
+          <% if(!currentLoggedIn) {%>
+          <form action="/course/<%= getCourse._id%>/bookmark" method="POST">
             <button class="bookmark-btn">Bookmark</button>
           </form>
+          <%} else {%> <% if(count > 0) {%>
+          <form
+            action="/course/<%= getCourse._id%>/bookmark?_method=DELETE"
+            method="POST"
+          >
+            <button class="bookmark-btn">Remove From Bookmark</button>
+          </form>
+          <%} else {%>
+          <form action="/course/<%= getCourse._id%>/bookmark" method="POST">
+            <button class="bookmark-btn">Bookmark</button>
+          </form>
+          <%} %> <%} %>
         </div>
       </div>
       <div class="platform">

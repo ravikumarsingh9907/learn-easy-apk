@@ -8,6 +8,7 @@ const courseSchema = new Schema(
     title: {
       type: String,
       required: true,
+      unique: true,
     },
     type: {
       type: String,
@@ -40,6 +41,7 @@ const courseSchema = new Schema(
     url: {
       type: String,
       required: true,
+      unique: true,
     },
     image: {
       type: String,

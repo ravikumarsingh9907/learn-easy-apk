@@ -9,11 +9,12 @@ const methodOverride = require("method-override");
 const adminRouter = require("./Routers/adminRouter");
 const userRouter = require("./Routers/userRouter");
 const contactRouter = require("./Routers/contactRouter");
-const CustomError = require("./errorHandler");
 const session = require("express-session");
 const flash = require("connect-flash");
 
 const app = express();
+
+const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -43,12 +44,7 @@ app.use(adminRouter);
 app.use(userRouter);
 app.use(contactRouter);
 
-// app.use((err, req, res, next) => {
-//   const { status = 500, message = "Something went wrong" } = err;
-//   res.status(status).send(message);
-// });
-
 // // Listening to port
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("Listening to port 3000");
 });

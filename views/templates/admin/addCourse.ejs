@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin</title>
+    <title>Admin - Add Course</title>
 
     <!-- Favicon icon link -->
     <link rel="icon" type="image/png" href="/icons/title.png" />
@@ -68,7 +68,7 @@
 
     <div class="form">
       <div class="form-div">
-        <h2>Add Courses</h2>
+        <h2>Add Course</h2>
         <!-- Admin form -->
         <form
           action="/admin/courses/add/<%= getCategory._id%>"
@@ -116,7 +116,7 @@
               </div>
               <div class="form_item">
                 <label for="url">Course URL: </label>
-                <input type="text" id="url" name="url" name="url" />
+                <input type="text" id="url" name="url" name="url" required />
               </div>
             </div>
             <div class="right-input">
@@ -152,7 +152,7 @@
               </div>
               <div class="form_item">
                 <label for="tags">Course Tags: </label>
-                <input type="text" id="tags" name="tags" />
+                <input type="text" id="tags" name="tags" required />
               </div>
             </div>
           </div>

@@ -157,6 +157,10 @@ span:hover {
   background-color: #2a97bb;
   transition: all 0.4s linear;
 }
+
+.after-login {
+  border: none;
+}
 /* End of navbar */
 
 /* Header image */
@@ -1116,7 +1120,7 @@ ul {
   .foot_logo img {
     object-fit: contain;
   }
-  
+
   .footer .footer_inner {
     flex-direction: column;
   }

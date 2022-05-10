@@ -5,13 +5,13 @@ const customer = require("../models/users");
 const review = require("../models/reviews");
 const Categories = require("../models/categories");
 const bcrypt = require("bcrypt");
-const CustomError = require("../errorHandler");
 
 const Router = new express.Router();
 
 const loginRequired = (req, res, next) => {
   if (!req.session.customer_id) {
-    res.status(401).send("Please Login First.......");
+    // req.session.returnBackToLastPage = req.originalUrl;
+    return res.redirect("/login");
   }
   next();
 };
@@ -24,15 +24,6 @@ const averageRating = (ratings) => {
   }
   avg = sum / ratings.length;
   return avg;
-};
-
-const checkBookmark = (course, user) => {
-  for (var i = 0; i < user.length; i++) {
-    if (user[i]._id === course._id) {
-      return course;
-    }
-  }
-  return user.push(course);
 };
 
 Router.get("/", async (req, res) => {
@@ -66,6 +57,7 @@ Router.post("/login", async (req, res) => {
     return res.status(404).send({ error: "Invalid email or password" });
   }
   req.session.customer_id = Customer._id;
+  const redirected = req.session.returnBackToLastPage || "/";
   res.status(200).redirect("/");
 });
 
@@ -185,33 +177,73 @@ Router.post("/courses/:id", loginRequired, async (req, res) => {
 
 Router.get("/courses/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const getCourse = await course.findById(id).populate({
-      path: "reviews",
-      populate: { path: "user", model: "customers" },
-    });
-    console.log(getCourse);
+    if (!req.session.customer_id) {
+      const { id } = req.params;
+      const getCourse = await course.findById(id).populate({
+        path: "reviews",
+        populate: { path: "user", model: "customers" },
+      });
 
-    // counting total number of rating and reviews
-    const totalRating = [];
-    const totalReview = [];
-    for (var i = 0; i < getCourse.reviews.length; i++) {
-      totalRating.push(getCourse.reviews[i].rating);
-      totalReview.push(getCourse.reviews[i].review);
+      // counting total number of rating and reviews
+      const totalRating = [];
+      const totalReview = [];
+      for (var i = 0; i < getCourse.reviews.length; i++) {
+        totalRating.push(getCourse.reviews[i].rating);
+        totalReview.push(getCourse.reviews[i].review);
+      }
+
+      const ratingCount = totalRating.length;
+      const reviewCount = totalReview.length;
+
+      // calculating average
+      const avgRating = averageRating(totalRating).toFixed(2);
+
+      res.status(200).render("templates/user/course", {
+        getCourse,
+        avgRating,
+        ratingCount,
+        reviewCount,
+      });
+    } else {
+      const { id } = req.params;
+      const getCourse = await course.findById(id).populate({
+        path: "reviews",
+        populate: { path: "user", model: "customers" },
+      });
+
+      const foundUser = await customer
+        .findById(req.session.customer_id)
+        .populate("Bookmark");
+
+      // counting total number of rating and reviews
+      const totalRating = [];
+      const totalReview = [];
+      for (var i = 0; i < getCourse.reviews.length; i++) {
+        totalRating.push(getCourse.reviews[i].rating);
+        totalReview.push(getCourse.reviews[i].review);
+      }
+
+      const ratingCount = totalRating.length;
+      const reviewCount = totalReview.length;
+
+      // calculating average
+      const avgRating = averageRating(totalRating).toFixed(2);
+
+      var count = 0;
+      for (var duplicate of foundUser.Bookmark) {
+        if (duplicate.title == getCourse.title) {
+          count++;
+        }
+      }
+
+      res.status(200).render("templates/user/course", {
+        getCourse,
+        avgRating,
+        ratingCount,
+        reviewCount,
+        count,
+      });
     }
-
-    const ratingCount = totalRating.length;
-    const reviewCount = totalReview.length;
-
-    // calculating average
-    const avgRating = averageRating(totalRating).toFixed(2);
-
-    res.status(200).render("templates/user/course", {
-      getCourse,
-      avgRating,
-      ratingCount,
-      reviewCount,
-    });
   } catch {
     res
       .status(400)
@@ -219,18 +251,36 @@ Router.get("/courses/:id", async (req, res) => {
   }
 });
 
-Router.post("/course/:id", loginRequired, async (req, res) => {
+Router.post("/course/:id/bookmark", loginRequired, async (req, res, next) => {
   try {
     const { id } = req.params;
     const foundCourse = await course.findById(id);
     const foundUser = await customer
       .findById(req.session.customer_id)
       .populate("Bookmark");
+
     foundUser.Bookmark.push(foundCourse);
     await foundUser.save();
     res.status(200).redirect(`/courses/${id}`);
   } catch {
-    res.status(400).send("Something went wrong");
+    res.status(400).send("Something went wrong, please try again");
+  }
+});
+
+Router.delete("/course/:id/bookmark", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const foundUser = await customer.findByIdAndUpdate(
+      req.session.customer_id,
+      {
+        $pull: { Bookmark: id },
+      }
+    );
+
+    foundUser.save();
+    res.status(200).redirect(`/courses`);
+  } catch {
+    res.status(400).send("Something Went Wrong at Deleting");
   }
 });
 
