@@ -124,7 +124,7 @@ Router.post("/admin/courses/add", upload.single("image"), async (req, res) => {
     const addCategory = new Category(req.body);
     addCategory.image = req.file.path;
     await addCategory.save();
-    res.status(201).redirect(`/admin/courses/add/${addCategory._id}`);
+    res.status(201).redirect(`/admin/courses/add`);
   } catch {
     res.status(406).send("Something went wrong at add Category");
   }
