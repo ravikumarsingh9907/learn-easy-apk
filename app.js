@@ -29,13 +29,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 const store = mongoStore.create({
-  mongoUrl: process.env.DB_URL || "mongodb://127.0.0.1:27017/learn-smart",
+  mongoUrl: process.env.DB_URL || "mongodb://localhost:27017/learn-smart",
   secret: process.env.SECRET_KEY || "mynameisravikumarsingh",
   touchAfter: 14 * 24 * 60 * 60,
 });
 
 store.on("error", function (e) {
   console.log("Session Store Error", e);
+  s;
 });
 
 const secretKey = {
