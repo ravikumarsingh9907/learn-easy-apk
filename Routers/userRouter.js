@@ -10,8 +10,7 @@ const Router = new express.Router();
 
 const loginRequired = (req, res, next) => {
   if (!req.session.customer_id) {
-    // req.session.returnBackToLastPage = req.originalUrl;
-    return res.redirect("/login");
+    return res.status(401).redirect("/login");
   }
   next();
 };
@@ -27,12 +26,18 @@ const averageRating = (ratings) => {
 };
 
 Router.get("/", async (req, res) => {
-  const getCategory = await Categories.find({});
-  const getCategories = [];
-  for (var i = 0; i < 6; i++) {
-    getCategories.push(getCategory[i]);
+  try {
+    const getCategory = await Categories.find({});
+    const getCategories = [];
+    for (var i = 0; i < 6; i++) {
+      getCategories.push(getCategory[i]);
+    }
+    res.status(200).render("templates/user/index", { getCategories });
+  } catch {
+    res
+      .status(400)
+      .send({ error: "Can't Reach to Home Page, try in Sometimes" });
   }
-  res.status(200).render("templates/user/index", { getCategories });
 });
 
 // Admin Login Authentication
@@ -40,32 +45,37 @@ Router.get("/login", (req, res) => {
   if (!req.session.customer_id) {
     return res.status(200).render("templates/user/login");
   }
-  res.status(500).send({ error: "Already logged in" });
+  res.status(400).send({ error: "Already logged in" });
 });
 
 Router.post("/login", async (req, res) => {
-  const data = req.body;
-  const Customer = await customer.findOne({ email: data.email });
-  if (!Customer) {
-    return res.status(404).send({ error: "Invalid email or password" });
+  try {
+    const data = req.body;
+    const Customer = await customer.findOne({ email: data.email });
+    if (!Customer) {
+      return res.status(203).send({ error: "Invalid email or password" });
+    }
+    const validateCustomer = await bcrypt.compare(
+      data.password,
+      Customer.password
+    );
+    if (!validateCustomer) {
+      return res.status(203).send({ error: "Invalid email or password" });
+    }
+    req.session.customer_id = Customer._id;
+    res.status(200).redirect("/");
+  } catch {
+    res.status(400).send({
+      error: "Something went wrong at Login, Try Again after Sometimes",
+    });
   }
-  const validateCustomer = await bcrypt.compare(
-    data.password,
-    Customer.password
-  );
-  if (!validateCustomer) {
-    return res.status(404).send({ error: "Invalid email or password" });
-  }
-  req.session.customer_id = Customer._id;
-  const redirected = req.session.returnBackToLastPage || "/";
-  res.status(200).redirect("/");
 });
 
 Router.get("/signup", (req, res) => {
   if (!req.session.customer_id) {
     return res.status(200).render("templates/user/signup");
   }
-  res.status(500).send({ error: "Already created Account" });
+  res.status(400).send({ error: "Already created Account" });
 });
 
 Router.post("/signup", async (req, res) => {
@@ -79,7 +89,7 @@ Router.post("/signup", async (req, res) => {
     });
     await savedData.save();
     req.session.customer_id = savedData._id;
-    res.status(200).redirect("/");
+    res.status(201).redirect("/");
   } catch {
     res.status(400).send("User not created");
   }
@@ -124,7 +134,7 @@ Router.get("/profile", loginRequired, async (req, res) => {
 
 Router.get("/logout", async (req, res) => {
   req.session.destroy();
-  res.status(200).redirect("/");
+  res.status(202).redirect("/");
 });
 
 Router.get("/categories", async (req, res) => {
@@ -169,7 +179,7 @@ Router.post("/courses/:id", loginRequired, async (req, res) => {
     await foundCourse.save();
     await foundUser.save();
     await addReview.save();
-    res.status(200).redirect(`/courses/${id}`);
+    res.status(201).redirect(`/courses/${id}`);
   } catch {
     res.status(400).send("Something went wrong at adding review");
   }
@@ -261,7 +271,7 @@ Router.post("/course/:id/bookmark", loginRequired, async (req, res, next) => {
 
     foundUser.Bookmark.push(foundCourse);
     await foundUser.save();
-    res.status(200).redirect(`/courses/${id}`);
+    res.status(202).redirect(`/courses/${id}`);
   } catch {
     res.status(400).send("Something went wrong, please try again");
   }
@@ -278,7 +288,7 @@ Router.delete("/course/:id/bookmark", async (req, res) => {
     );
 
     foundUser.save();
-    res.status(200).redirect(`/courses`);
+    res.status(202).redirect(`/courses`);
   } catch {
     res.status(400).send("Something Went Wrong at Deleting");
   }

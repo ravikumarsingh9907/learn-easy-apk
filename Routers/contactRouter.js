@@ -29,9 +29,9 @@ Router.post("/contactus", async (req, res) => {
       await foundUser.save();
       await foundQuery.save();
     }
-    res.status(200).redirect("/contactus");
+    res.status(202).redirect("/contactus");
   } catch {
-    res.status(400).send("Something went wrong at contactus");
+    res.status(401).send("Not able to Connect with us, try in Sometimes...");
   }
 });
 

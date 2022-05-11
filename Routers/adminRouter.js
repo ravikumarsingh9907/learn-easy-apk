@@ -25,7 +25,7 @@ const types = ["Article", "Video", "Article/Video"];
 
 const loginRequired = (req, res, next) => {
   if (!req.session.user_id) {
-    return res.status(404).send({ error: "please Authenticate" });
+    return res.status(401).send({ error: "please Authenticate" });
   }
   next();
 };
@@ -42,9 +42,9 @@ const averageRating = (ratings) => {
 
 Router.get("/admin", (req, res) => {
   if (!req.session.user_id) {
-    return res.status(200).redirect("/admin/login");
+    return res.status(401).redirect("/admin/login");
   }
-  res.status(500).redirect("/admin/courses");
+  res.status(200).redirect("/admin/courses");
 });
 
 // Admin Login Authentication
@@ -52,18 +52,18 @@ Router.get("/admin/login", (req, res) => {
   if (!req.session.user_id) {
     return res.status(200).render("templates/admin/login");
   }
-  res.status(500).send({ error: "Already logged in" });
+  res.status(400).send({ error: "Already logged in" });
 });
 
 Router.post("/admin/login", async (req, res) => {
   const data = req.body;
   const User = await user.findOne({ email: data.email });
   if (!User) {
-    return res.status(404).send({ error: "Invalid email or password" });
+    return res.status(203).send({ error: "Invalid email or password" });
   }
   const validateUser = await bcrypt.compare(data.password, User.password);
   if (!validateUser) {
-    return res.status(404).send({ error: "Invalid email or password" });
+    return res.status(203).send({ error: "Invalid email or password" });
   }
   req.session.user_id = User._id;
   res.status(200).redirect("/admin/courses");
@@ -73,24 +73,23 @@ Router.get("/admin/signup", (req, res) => {
   if (!req.session.user_id) {
     return res.status(200).render("templates/admin/signup");
   }
-  res.status(500).send({ error: "Already logged In" });
+  res.status(400).send({ error: "Already logged In" });
 });
 
 Router.post("/admin/signup", async (req, res) => {
   try {
-    const { name, email, password, interest } = req.body;
+    const { name, email, password } = req.body;
     const hashedPass = await bcrypt.hash(password, 12);
     const savedData = new user({
       name,
       email,
       password: hashedPass,
-      interest,
     });
     await savedData.save();
     req.session.user_id = savedData._id;
-    res.status(200).redirect("/admin/courses");
+    res.status(201).redirect("/admin/courses");
   } catch {
-    res.status(400).send("User not created");
+    res.status(406).send("User not created");
   }
 });
 
@@ -105,16 +104,18 @@ Router.get("/admin/courses", loginRequired, async (req, res) => {
     const allCourses = await course.find({});
     res.status(200).render("templates/admin/index", { allCourses });
   } catch (e) {
-    res.status(400).send("Something went wrong");
+    res.status(403).send("Can't Get Courses");
   }
 });
 
 Router.get("/admin/courses/add", loginRequired, async (req, res) => {
   try {
     const getCategories = await Category.find({});
-    res.render("templates/admin/chooseCategories", { getCategories });
+    res
+      .status(200)
+      .render("templates/admin/chooseCategories", { getCategories });
   } catch {
-    res.status(400).send("Something went wrong");
+    res.status(400).send("Can't Add Course, Try In Sometimes...");
   }
 });
 
@@ -123,9 +124,9 @@ Router.post("/admin/courses/add", upload.single("image"), async (req, res) => {
     const addCategory = new Category(req.body);
     addCategory.image = req.file.path;
     await addCategory.save();
-    res.status(200).redirect(`/admin/courses/add/${addCategory._id}`);
+    res.status(201).redirect(`/admin/courses/add/${addCategory._id}`);
   } catch {
-    res.status(400).send("Something went wrong at add category");
+    res.status(406).send("Something went wrong at add Category");
   }
 });
 
@@ -140,7 +141,7 @@ Router.get("/admin/courses/add/:id", loginRequired, async (req, res) => {
       types,
     });
   } catch {
-    res.status(400).send("Something went wrong at getting category");
+    res.status(400).send("Something went wrong at Getting Category");
   }
 });
 
@@ -157,9 +158,9 @@ Router.post(
       await addCourse.save();
       await getCategory.save();
       req.flash("success", `Successfully added new course`);
-      res.status(200).redirect("/admin/courses");
+      res.status(201).redirect("/admin/courses");
     } catch (err) {
-      res.status(400).send("Something went wrong", err);
+      res.status(406).send("Something went wrong", err);
     }
   }
 );
@@ -190,7 +191,7 @@ Router.get("/admin/courses/:id", loginRequired, async (req, res) => {
       avgRating,
     });
   } catch {
-    res.status(400).render("Something went wrong");
+    res.status(400).render("Cannot get Course Details");
   }
 });
 
@@ -204,9 +205,9 @@ Router.put(
       getCourse.image = req.file.path;
       await getCourse.save();
       req.flash("success", `Successfully updated your course`);
-      res.status(200).redirect("/admin/courses");
+      res.status(202).redirect("/admin/courses");
     } catch {
-      res.status(400).render("Something went wrong");
+      res.status(400).render("Cannot Update Course, Try in Sometimes...");
     }
   }
 );
@@ -222,7 +223,7 @@ Router.get("/admin/courses/:id/edit", loginRequired, async (req, res) => {
       types,
     });
   } catch {
-    res.status(400).render("Something went wrong");
+    res.status(400).render("Not able to get Update course page.");
   }
 });
 
@@ -233,7 +234,9 @@ Router.delete("/admin/courses/:id", async (req, res) => {
     req.flash("success", `Successfully Deleted course`);
     res.status(200).redirect("/admin/courses");
   } catch {
-    res.status(500).send("Something went wrong");
+    res
+      .status(400)
+      .send("Not able to delete Course at this moment, Try after Sometimess");
   }
 });
 
