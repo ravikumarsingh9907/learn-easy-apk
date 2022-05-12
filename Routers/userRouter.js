@@ -191,7 +191,7 @@ Router.get("/courses/:id", async (req, res) => {
       const { id } = req.params;
       const getCourse = await course.findById(id).populate({
         path: "reviews",
-        populate: { path: "user", model: "customers" },
+        populate: { path: "user" },
       });
 
       // counting total number of rating and reviews
