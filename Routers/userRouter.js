@@ -137,6 +137,10 @@ Router.get("/logout", async (req, res) => {
   res.status(202).redirect("/");
 });
 
+Router.get("/about", async (req, res) => {
+  res.status(202).render("templates/user/about");
+});
+
 Router.get("/categories", async (req, res) => {
   try {
     const getCategories = await Categories.find({});
