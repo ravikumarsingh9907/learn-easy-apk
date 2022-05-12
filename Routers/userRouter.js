@@ -292,7 +292,7 @@ Router.delete("/course/:id/bookmark", async (req, res) => {
     );
 
     foundUser.save();
-    res.status(202).redirect(`/courses`);
+    res.status(202).redirect(`/bookmark`);
   } catch {
     res.status(400).send("Something Went Wrong at Deleting");
   }
