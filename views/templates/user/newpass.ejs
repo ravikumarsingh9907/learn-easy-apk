@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Set Password</title>
 
     <!-- Favicon icon link -->
     <link rel = "icon" type="image/png" href = "https://res.cloudinary.com/dupvoqioo/image/upload/v1652290972/Courses/Page%20Content/title_xnke0k.png">
@@ -30,29 +30,21 @@
     <!-- Login div -->
     <div class="login_div">
         <div class="wrapper">
-            <h3>Login</h3>
+            <h3>New Password</h3>
             <!-- Form part -->
-            <form class="login input_part" action="/login" method="POST">
+            <form class="login input_part" action="/forgotpassword/<%=foundUser.email%>/newpassword" method="POST">
 
                 
                 <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"> <i class="fa fa-envelope icon"></i></span>
-                    <input type="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="addon-wrapping" name="email">
-                  </div>
-
-                <div class="input_container " id="passfield">
-                    
-                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping"><i class="fa fa-key icon"></i></span>
-                        <input type="password" class="form-control" placeholder="password" aria-label="email" aria-describedby="addon-wrapping" name="password">
-                        <span class="input-group-text" id="addon-wrapping"> <i class="fa-solid fa-eye" id="password_eye"></i></span>
-                      </div>
-
-                    <div class="forgot">
-                        <a href="/forgotpassword" class="forpass">Forgot Password?</a>
-                    </div>
+                    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-key icon"></i></span>
+                    <input type="password" class="form-control" placeholder="password" name="password">
+                    <span class="input-group-text" id="addon-wrapping"> <i class="fa-solid fa-eye" id="password_eye"></i></span>
                 </div>
-                <button class="submit_btn">Log In</button>
+                <div class="forgot position-set">
+                    <a href="/login">Login Here</a>
+                </div>
+
+                <button class="submit_btn">Reset</button>
                 <div class="user">
                     <p>New User?<a href="/signup">Create Account</p>
                 </div>

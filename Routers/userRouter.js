@@ -95,6 +95,50 @@ Router.post("/signup", async (req, res) => {
   }
 });
 
+// Rest password
+Router.get("/forgotpassword", (req, res) => {
+  res.render("templates/user/forgotpass");
+});
+
+Router.post("/forgotpassword", async (req, res) => {
+  try {
+    const userEmail = req.body;
+    const foundUser = await customer.findOne(userEmail);
+    if (foundUser.length == 0) {
+      res.status(404).send({ error: "Couldn't found user" });
+    } else {
+      res
+        .status(200)
+        .redirect(`/forgotpassword/${foundUser.email}/newpassword`);
+    }
+  } catch {
+    res.send({ error: "user not found" });
+  }
+});
+
+Router.post("/forgotpassword/:email/newpassword", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const foundUser = await customer.findOne({ email });
+    console.log(foundUser);
+    const password = req.body.password;
+    const hashedPass = await bcrypt.hash(password, 12);
+    foundUser.password = hashedPass;
+    await foundUser.save();
+    res.status(202).redirect("/login");
+  } catch {
+    res
+      .status(400)
+      .send({ error: "Something went wrong, please try after sometime" });
+  }
+});
+
+Router.get("/forgotpassword/:email/newpassword", async (req, res) => {
+  const userEmail = req.params.email;
+  const foundUser = await customer.findOne({ email: userEmail });
+  res.status(200).render("templates/user/newpass", { foundUser });
+});
+
 Router.get("/bookmark", loginRequired, async (req, res) => {
   try {
     const id = req.session.customer_id;

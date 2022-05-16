@@ -11,6 +11,11 @@ body {
   overflow: hidden;
 }
 
+.position-set {
+  position: relative;
+  width: 100%;
+}
+
 /* Header and navbar */
 header {
   height: 4rem;
@@ -151,16 +156,23 @@ i {
   width: 100%;
   text-align: end;
   padding-top: 0.5rem;
+  position: relative;
 }
 .forgot a {
   color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-size: 13px;
   position: absolute;
-  left: 52%;
-  top: 47%;
+  left: 78%;
+  top: -9px;
   transition: color 0.4s ease;
 }
+
+.forpass {
+  left: 66% !important;
+  top: 10px !important;
+}
+
 .forgot a:hover {
   color: #61ffff;
 }
