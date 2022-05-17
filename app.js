@@ -29,8 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 const store = mongoStore.create({
-  mongoUrl: process.env.DB_URL || "mongodb://localhost:27017/learn-easy",
-  secret: process.env.SECRET_KEY || "mynameisravikumarsingh",
+  mongoUrl: process.env.DB_URL,
+  secret: process.env.SECRET_KEY,
   touchAfter: 14 * 24 * 60 * 60,
 });
 
@@ -41,7 +41,7 @@ store.on("error", function (e) {
 
 const secretKey = {
   store,
-  secret: process.env.SECRET_KEY || "mynameisravikumarsingh",
+  secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true,
   cookie: {
