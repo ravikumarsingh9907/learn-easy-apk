@@ -71,7 +71,7 @@ Router.post("/admin/login", async (req, res) => {
 
 Router.get("/admin/signup", (req, res) => {
   if (!req.session.user_id) {
-    return res.status(200).render("templates/admin/signup");
+    return res.status(200).render("templates/admin/login");
   }
   res.status(400).send({ error: "Already logged In" });
 });
