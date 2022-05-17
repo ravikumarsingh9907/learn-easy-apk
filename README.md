@@ -20,7 +20,7 @@ Learn Easy is a web application which provides learning resources .
 
 # REST API Endpoints &middot;
 
-![endpoints](./public/images/Blank%20diagram.jpeg)
+![endpoints](./public/Images/Blank%20diagram.jpeg)
 
 # Team Members &middot;
 
