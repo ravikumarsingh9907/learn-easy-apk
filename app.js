@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const express = require("express");
 require("./db/database");
 const path = require("path");
@@ -13,6 +9,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const mongoSanitize = require("express-mongo-sanitize");
 const mongoStore = require("connect-mongo");
+require("dotenv").config();
 
 const app = express();
 
