@@ -2,7 +2,7 @@
 <br>
 <br>
 
-# [LearnEasy](https://learn-easy-ktoy6bo3g-ravikumarsingh9907.vercel.app/) &middot;
+# [LearnEasy](https://learn-easy-apk.onrender.com) &middot;
 
 Learn Easy is a web application which provides learning resources .
 
