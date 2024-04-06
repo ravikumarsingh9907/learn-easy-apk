@@ -5,6 +5,9 @@ const customer = require("../models/users");
 const review = require("../models/reviews");
 const Categories = require("../models/categories");
 const bcrypt = require("bcrypt");
+const AccessToken = require('../models/tokenAccessHistory');
+const sendEmail = require('../utils/sendEmail');
+const crypto = require('crypto');
 
 const Router = new express.Router();
 
@@ -14,6 +17,15 @@ const loginRequired = (req, res, next) => {
   }
   next();
 };
+
+const generateAccessToken = function () {
+  const otp = Math.floor(1000 + Math.random() * 9000);
+  return otp.toString();
+}
+
+const generateVerificationToken = () => {
+  return crypto.randomBytes(16).toString('hex');
+}
 
 const averageRating = (ratings) => {
   let sum = 0;
@@ -29,114 +41,17 @@ Router.get("/", async (req, res) => {
   try {
     const getCategory = await Categories.find({});
     const getCategories = [];
+
+    if (!getCategory || getCategory.length == 0) throw new Error('No category found.');
+
     for (var i = 0; i < 6; i++) {
       getCategories.push(getCategory[i]);
     }
-    res.status(200).render("templates/user/index", { getCategories });
-  } catch {
-    res
-      .status(400)
-      .send({ error: "Can't Reach to Home Page, try in Sometimes" });
+
+    res.status(200).send(getCategories);
+  } catch (error) {
+    res.status(400).send({ error: error.message });
   }
-});
-
-// Admin Login Authentication
-Router.get("/login", (req, res) => {
-  if (!req.session.customer_id) {
-    return res.status(200).render("templates/user/login");
-  }
-  res.status(400).send({ error: "Already logged in" });
-});
-
-Router.post("/login", async (req, res) => {
-  try {
-    const data = req.body;
-    const Customer = await customer.findOne({ email: data.email });
-    if (!Customer) {
-      return res.status(203).send({ error: "Invalid email or password" });
-    }
-    const validateCustomer = await bcrypt.compare(
-      data.password,
-      Customer.password
-    );
-    if (!validateCustomer) {
-      return res.status(203).send({ error: "Invalid email or password" });
-    }
-    req.session.customer_id = Customer._id;
-    res.status(200).redirect("/");
-  } catch {
-    res.status(400).send({
-      error: "Something went wrong at Login, Try Again after Sometimes",
-    });
-  }
-});
-
-Router.get("/signup", (req, res) => {
-  if (!req.session.customer_id) {
-    return res.status(200).render("templates/user/signup");
-  }
-  res.status(400).send({ error: "Already created Account" });
-});
-
-Router.post("/signup", async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-    const hashedPass = await bcrypt.hash(password, 12);
-    const savedData = new customer({
-      name,
-      email,
-      password: hashedPass,
-    });
-    await savedData.save();
-    req.session.customer_id = savedData._id;
-    res.status(201).redirect("/");
-  } catch {
-    res.status(400).send("User not created");
-  }
-});
-
-// Rest password
-Router.get("/forgotpassword", (req, res) => {
-  res.render("templates/user/forgotpass");
-});
-
-Router.post("/forgotpassword", async (req, res) => {
-  try {
-    const userEmail = req.body;
-    const foundUser = await customer.findOne(userEmail);
-    if (foundUser.length == 0) {
-      res.status(404).send({ error: "Couldn't found user" });
-    } else {
-      res
-        .status(200)
-        .redirect(`/forgotpassword/${foundUser.email}/newpassword`);
-    }
-  } catch {
-    res.send({ error: "user not found" });
-  }
-});
-
-Router.post("/forgotpassword/:email/newpassword", async (req, res) => {
-  try {
-    const { email } = req.params;
-    const foundUser = await customer.findOne({ email });
-    console.log(foundUser);
-    const password = req.body.password;
-    const hashedPass = await bcrypt.hash(password, 12);
-    foundUser.password = hashedPass;
-    await foundUser.save();
-    res.status(202).redirect("/login");
-  } catch {
-    res
-      .status(400)
-      .send({ error: "Something went wrong, please try after sometime" });
-  }
-});
-
-Router.get("/forgotpassword/:email/newpassword", async (req, res) => {
-  const userEmail = req.params.email;
-  const foundUser = await customer.findOne({ email: userEmail });
-  res.status(200).render("templates/user/newpass", { foundUser });
 });
 
 Router.get("/bookmark", loginRequired, async (req, res) => {

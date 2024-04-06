@@ -9,12 +9,15 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const mongoSanitize = require("express-mongo-sanitize");
 const mongoStore = require("connect-mongo");
+const cors = require('cors');
+const authRouter = require('./Routers/authRouter');
 require("dotenv").config();
 
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3300;
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize());
 
@@ -33,7 +36,6 @@ const store = mongoStore.create({
 
 store.on("error", function (e) {
   console.log("Session Store Error", e);
-  s;
 });
 
 const secretKey = {
@@ -57,6 +59,7 @@ app.use((req, res, next) => {
 });
 
 // Admin Router
+app.use(authRouter);
 app.use(adminRouter);
 app.use(userRouter);
 app.use(contactRouter);
