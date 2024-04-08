@@ -28,7 +28,7 @@ const courseSchema = new Schema(
     },
     description: {
       type: String,
-      default: "Information Not Available",
+      default: "Information not available",
     },
     prerequisites: {
       type: String,
@@ -46,27 +46,15 @@ const courseSchema = new Schema(
     image: {
       type: String,
     },
-    reviews: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Reviews",
-      },
-    ],
+    category: {
+      type: mongoose.Types.ObjectId,
+      ref: "Categories"
+    },
   },
   {
     timestamps: true,
   }
 );
-
-courseSchema.post("findOneAndDelete", async function (docs) {
-  if (docs) {
-    await deleteReview.remove({
-      _id: {
-        $in: docs.reviews,
-      },
-    });
-  }
-});
 
 const course = mongoose.model("Course", courseSchema);
 

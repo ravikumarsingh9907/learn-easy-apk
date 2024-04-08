@@ -24,24 +24,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    reviews: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Reviews",
-      },
-    ],
-    Bookmark: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
-    queries: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "contact",
-      },
-    ],
   },
   {
     timestamps: true,

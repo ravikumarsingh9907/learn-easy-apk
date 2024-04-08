@@ -12,12 +12,10 @@ const categorySchema = new Schema(
       type: String,
       required: true,
     },
-    courses: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
+    image_id: {
+        type: String,
+        required: true,
+    },
   },
   {
     timestamps: true,

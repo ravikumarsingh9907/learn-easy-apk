@@ -5,7 +5,11 @@ const reviewSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: "Users",
+      ref: "User",
+    },
+    course: {
+      type: Schema.Types.ObjectId,
+      ref: "Course",
     },
     rating: {
       type: Number,

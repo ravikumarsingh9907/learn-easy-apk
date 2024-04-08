@@ -1,5 +1,4 @@
 const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -7,14 +6,24 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "Courses",
-  },
-});
+async function uploadOnCloud(folder, image) {
+  return await new Promise((resolve) => {
+    const options = {
+      folder: folder,
+    };
+
+    cloudinary.uploader.upload_stream(options, (error, uploadResult) => {
+      return resolve(uploadResult);
+    }).end(image);
+  });
+}
+
+async function removeFromCloud(publicId) {
+  return await cloudinary.uploader.destroy(publicId);
+}
 
 module.exports = {
   cloudinary,
-  storage,
+  uploadOnCloud,
+  removeFromCloud,
 };
