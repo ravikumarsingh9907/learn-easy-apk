@@ -65,12 +65,12 @@ const deleteCategory = async (req, res) => {
 
         if(!getCategoryById) throw new Error('Category not found.');
 
-        const { result } = await deleteCategory(getCategoryById.image_id);
+        const { result } = await removeFromCloud(getCategoryById.image_id);
         if(result !== 'ok') {
             throw new Error("Couldn't delete category.");
         }
 
-        await Categories.findOneAndRemove(id);
+        await Categories.findByIdAndDelete(id);
         res.status(200).send({success: 'Category deleted successfully.'});
     } catch (e) {
         res.status(400).send({error: e.message});

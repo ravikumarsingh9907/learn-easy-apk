@@ -4,11 +4,6 @@ require("../db/database");
 const customer = require("../models/users");
 const review = require("../models/reviews");
 const Categories = require("../models/categories");
-const bcrypt = require("bcrypt");
-const AccessToken = require('../models/tokenAccessHistory');
-const sendEmail = require('../utils/sendEmail');
-const crypto = require('crypto');
-
 const Router = new express.Router();
 
 const loginRequired = (req, res, next) => {
@@ -17,15 +12,6 @@ const loginRequired = (req, res, next) => {
   }
   next();
 };
-
-const generateAccessToken = function () {
-  const otp = Math.floor(1000 + Math.random() * 9000);
-  return otp.toString();
-}
-
-const generateVerificationToken = () => {
-  return crypto.randomBytes(16).toString('hex');
-}
 
 const averageRating = (ratings) => {
   let sum = 0;
@@ -36,23 +22,6 @@ const averageRating = (ratings) => {
   avg = sum / ratings.length;
   return avg;
 };
-
-Router.get("/", async (req, res) => {
-  try {
-    const getCategory = await Categories.find({});
-    const getCategories = [];
-
-    if (!getCategory || getCategory.length == 0) throw new Error('No category found.');
-
-    for (var i = 0; i < 6; i++) {
-      getCategories.push(getCategory[i]);
-    }
-
-    res.status(200).send(getCategories);
-  } catch (error) {
-    res.status(400).send({ error: error.message });
-  }
-});
 
 Router.get("/bookmark", loginRequired, async (req, res) => {
   try {
@@ -100,137 +69,13 @@ Router.get("/about", async (req, res) => {
   res.status(202).render("templates/user/about");
 });
 
-Router.get("/categories", async (req, res) => {
-  try {
-    const getCategories = await Categories.find({});
-    res.status(200).render("templates/user/categories", { getCategories });
-  } catch {
-    res.status(400).send("Couldn't get categories");
-  }
-});
-
-// Category wise page
-Router.get("/categories/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const showCourses = await Categories.findById(id).populate("courses");
-    res.status(200).render("templates/user/catCourse", { showCourses });
-  } catch {
-    console.log("Something went wrong");
-  }
-});
-
-Router.get("/courses", async (req, res) => {
-  try {
-    const allCourses = await course.find({});
-    res.status(200).render("templates/user/allcourses", { allCourses });
-  } catch {
-    res.status(400).send("Something went Wrong");
-  }
-});
-
-Router.post("/courses/:id", loginRequired, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const userId = req.session.customer_id;
-    let foundUser = await customer.findById(userId);
-    let foundCourse = await course.findById(id);
-    let addReview = new review(req.body);
-    foundUser.reviews.push(addReview);
-    foundCourse.reviews.push(addReview);
-    addReview.user = foundUser;
-    await foundCourse.save();
-    await foundUser.save();
-    await addReview.save();
-    res.status(201).redirect(`/courses/${id}`);
-  } catch {
-    res.status(400).send("Something went wrong at adding review");
-  }
-});
-
-Router.get("/courses/:id", async (req, res) => {
-  try {
-    if (!req.session.customer_id) {
-      const { id } = req.params;
-      const getCourse = await course.findById(id).populate({
-        path: "reviews",
-        populate: { path: "user" },
-      });
-
-      // counting total number of rating and reviews
-      const totalRating = [];
-      const totalReview = [];
-      for (var i = 0; i < getCourse.reviews.length; i++) {
-        totalRating.push(getCourse.reviews[i].rating);
-        totalReview.push(getCourse.reviews[i].review);
-      }
-
-      const ratingCount = totalRating.length;
-      const reviewCount = totalReview.length;
-
-      // calculating average
-      const avgRating = averageRating(totalRating).toFixed(2);
-
-      res.status(200).render("templates/user/course", {
-        getCourse,
-        avgRating,
-        ratingCount,
-        reviewCount,
-      });
-    } else {
-      const { id } = req.params;
-      const getCourse = await course.findById(id).populate({
-        path: "reviews",
-        populate: { path: "user" },
-      });
-
-      const foundUser = await customer
-        .findById(req.session.customer_id)
-        .populate("Bookmark");
-
-      // counting total number of rating and reviews
-      const totalRating = [];
-      const totalReview = [];
-      for (var i = 0; i < getCourse.reviews.length; i++) {
-        totalRating.push(getCourse.reviews[i].rating);
-        totalReview.push(getCourse.reviews[i].review);
-      }
-
-      const ratingCount = totalRating.length;
-      const reviewCount = totalReview.length;
-
-      // calculating average
-      const avgRating = averageRating(totalRating).toFixed(2);
-
-      var count = 0;
-      for (var duplicate of foundUser.Bookmark) {
-        if (duplicate.title == getCourse.title) {
-          count++;
-        }
-      }
-
-      res.status(200).render("templates/user/course", {
-        getCourse,
-        avgRating,
-        ratingCount,
-        reviewCount,
-        count,
-      });
-    }
-  } catch {
-    res
-      .status(400)
-      .send({ error: "Something went wrong at getting categories courses" });
-  }
-});
-
-Router.post("/course/:id/bookmark", loginRequired, async (req, res, next) => {
+Router.post("/course/:id/bookmark", async (req, res, next) => {
   try {
     const { id } = req.params;
     const foundCourse = await course.findById(id);
     const foundUser = await customer
-      .findById(req.session.customer_id)
-      .populate("Bookmark");
+        .findById(req.session.customer_id)
+        .populate("Bookmark");
 
     foundUser.Bookmark.push(foundCourse);
     await foundUser.save();
@@ -244,10 +89,10 @@ Router.delete("/course/:id/bookmark", async (req, res) => {
   try {
     const { id } = req.params;
     const foundUser = await customer.findByIdAndUpdate(
-      req.session.customer_id,
-      {
-        $pull: { Bookmark: id },
-      }
+        req.session.customer_id,
+        {
+          $pull: { Bookmark: id },
+        }
     );
 
     foundUser.save();

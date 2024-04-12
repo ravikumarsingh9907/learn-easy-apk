@@ -24,6 +24,7 @@ app.use(adminRouter);
 app.use(userRouter);
 app.use(contactRouter);
 app.use(categoriesRouter);
+app.use(coursesRouter);
 
 app.get("*", (req, res) => {
   res.status(404).send({ error: "Page Not Found" });

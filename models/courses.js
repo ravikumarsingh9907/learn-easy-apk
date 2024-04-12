@@ -45,6 +45,11 @@ const courseSchema = new Schema(
     },
     image: {
       type: String,
+      required: true,
+    },
+    image_id: {
+      type: String,
+      required: true,
     },
     category: {
       type: mongoose.Types.ObjectId,
