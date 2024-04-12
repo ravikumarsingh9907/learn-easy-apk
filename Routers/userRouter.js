@@ -60,11 +60,6 @@ Router.get("/profile", loginRequired, async (req, res) => {
   }
 });
 
-Router.get("/logout", async (req, res) => {
-  req.session.destroy();
-  res.status(202).redirect("/");
-});
-
 Router.get("/about", async (req, res) => {
   res.status(202).render("templates/user/about");
 });

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const string_decoder = require("string_decoder");
 
 const userSchema = new mongoose.Schema(
   {
@@ -24,6 +25,16 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isAdmin: {
+      type: String,
+      default: false,
+    },
+    tokens: [{
+        type: String
+    }],
+    token: {
+        type: String,
+    }
   },
   {
     timestamps: true,

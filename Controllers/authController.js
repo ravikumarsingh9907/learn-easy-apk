@@ -2,38 +2,30 @@ const usersDb = require("../models/users");
 const sendEmail = require("../utils/sendEmail");
 const bcrypt = require("bcrypt");
 const accessTokensDb = require("../models/tokenAccessHistory");
-const crypto = require("crypto");
+const { generateAuthToken, generateVerificationToken, generateAccessToken, } = require('../utils/tokens');
 
-const generateAccessToken = function () {
-    const otp = Math.floor(1000 + Math.random() * 9000);
-    return otp.toString();
-}
-
-const generateVerificationToken = () => {
-    return crypto.randomBytes(16).toString('hex');
-}
 const loginUser = async (req, res) => {
     try {
         const data = req.body;
-        const foundCustomer = await usersDb.findOne({ email: data.email });
-        if (!foundCustomer) {
+        const foundUser = await usersDb.findOne({ email: data.email });
+        if (!foundUser) {
             throw new Error('Incorrect email or password.');
         }
 
         const token = generateVerificationToken();
         const URL = `http://localhost:3300/signup/verify-user/${token}`;
 
-        if(!foundCustomer.isVerified) {
+        if(!foundUser.isVerified) {
             const Token = new accessTokensDb({
-               email: foundCustomer.email,
+               email: foundUser.email,
                token: token,
-                user: foundCustomer._id,
+                user: foundUser._id,
             });
 
             await Token.save();
 
             await sendEmail({
-                email: foundCustomer.email,
+                email: foundUser.email,
                 subject: 'Verify your email - Learn Easy.',
                 body: `<p>To verify your account, please <a href=${URL}>Click here.</a></p>`
             });
@@ -43,13 +35,19 @@ const loginUser = async (req, res) => {
 
         const validateCustomer = await bcrypt.compare(
             data.password,
-            foundCustomer.password
+            foundUser.password
         );
         if (!validateCustomer) {
             throw new Error('Incorrect email or password.');
         }
-        req.session.customer_id = foundCustomer._id;
-        res.status(201).send({ id: foundCustomer._id });
+
+        const authToken = generateAuthToken(foundUser);
+        foundUser.token = authToken;
+        foundUser.tokens.push(authToken);
+
+        await foundUser.save();
+
+        res.status(201).send({ id: foundUser._id, token: authToken });
     } catch (error) {
         res.status(401).send({
             error: error.message,
@@ -150,7 +148,7 @@ const forgotPassword = async (req, res) => {
         });
 
         await createAccessToken.save();
-        res.status(200).send(createAccessToken);
+        res.status(200).send({'success': 'One Time Password sent to your email address.'});
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
@@ -203,9 +201,15 @@ const resetPassword = async (req, res) => {
     }
 }
 
+const signOutUser = async (req, res) => {
+    req.session.destroy();
+    res.status(202).redirect("/");
+}
+
 module.exports = Object.freeze({
     loginUser,
     signUpUser,
+    signOutUser,
     verifyUser,
     forgotPassword,
     verifyOtpForForgotPassword,

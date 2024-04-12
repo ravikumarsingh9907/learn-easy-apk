@@ -92,10 +92,25 @@ const updateCourse = async (req, res) => {
     }
 }
 
+const deleteCourse = async (req, res) => {
+    try {
+        const getCourse = await Course.findById(req.params.id);
+        if(!getCourse) throw new Error('Course not found.');
+
+        await removeFromCloud(getCourse.image_id);
+        await Course.findByIdAndDelete(req.params.id);
+
+        res.status(200).send({'success': 'Course deleted successfully.'})
+    } catch (e) {
+        res.status(400).send({error: e.message});
+    }
+}
+
 module.exports = Object.freeze({
     getCourses,
     getCoursesByCategory,
     getCourseById,
     addCourse,
     updateCourse,
+    deleteCourse,
 });
