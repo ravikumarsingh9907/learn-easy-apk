@@ -6,10 +6,7 @@ module.exports = async (req, res, next) => {
         const token = req.header('Authorization').replace('Bearer ', '');
         const decode = jwt.verify(token, process.env.WEB_TOKEN);
 
-        const user = await usersDb.findOne({
-            _id: decode._id,
-            tokens: token,
-        });
+        const user = await usersDb.findOne({ $and: [{_id: decode._id}, { tokens: {$elemMatch: { token: token}}}]});
 
         if(!user) throw Error();
 

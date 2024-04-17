@@ -15,8 +15,8 @@ const courseSchema = new Schema(
       required: true,
     },
     platform: {
-      type: String,
-      required: true,
+      type: mongoose.Types.ObjectId,
+      ref: 'Platform',
     },
     price: {
       type: String,
@@ -26,13 +26,13 @@ const courseSchema = new Schema(
       type: String,
       required: true,
     },
+    instructor: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       default: "Information not available",
-    },
-    prerequisites: {
-      type: String,
-      required: true,
     },
     tags: {
       type: String,
@@ -55,6 +55,10 @@ const courseSchema = new Schema(
       type: mongoose.Types.ObjectId,
       ref: "Categories"
     },
+    average_rating: {
+      type: Number,
+      default: 0,
+    }
   },
   {
     timestamps: true,

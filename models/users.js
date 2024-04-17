@@ -30,11 +30,10 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     tokens: [{
-        type: String
+        token: {
+            type: String,
+        }
     }],
-    token: {
-        type: String,
-    }
   },
   {
     timestamps: true,

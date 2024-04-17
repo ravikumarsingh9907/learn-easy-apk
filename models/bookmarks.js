@@ -10,6 +10,8 @@ const bookmarkSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Course',
     }
+}, {
+    timestamps: true,
 });
 
 const bookmarks = new mongoose.model('bookmark', bookmarkSchema);

@@ -1,10 +1,11 @@
 const express = require("express");
 require("./db/database");
-const adminRouter = require("./Routers/adminRouter");
 const userRouter = require("./Routers/userRouter");
 const contactRouter = require("./Routers/contactRouter");
 const categoriesRouter = require('./Routers/categoriesRouter');
 const coursesRouter = require('./Routers/coursesRouter');
+const reviewsRouter = require('./Routers/reviewsRouter');
+const platformsRouter = require('./Routers/platformsRouter');
 const cors = require('cors');
 const authRouter = require('./Routers/authRouter');
 require("dotenv").config();
@@ -20,11 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Admin Router
 app.use(authRouter);
-app.use(adminRouter);
 app.use(userRouter);
 app.use(contactRouter);
 app.use(categoriesRouter);
 app.use(coursesRouter);
+app.use(reviewsRouter);
+app.use(platformsRouter);
 
 app.get("*", (req, res) => {
   res.status(404).send({ error: "Page Not Found" });

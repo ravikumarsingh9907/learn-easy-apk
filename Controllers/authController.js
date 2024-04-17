@@ -42,16 +42,13 @@ const loginUser = async (req, res) => {
         }
 
         const authToken = generateAuthToken(foundUser);
-        foundUser.token = authToken;
-        foundUser.tokens.push(authToken);
+        foundUser.tokens.push({token: authToken});
 
         await foundUser.save();
 
         res.status(201).send({ id: foundUser._id, token: authToken });
     } catch (error) {
-        res.status(401).send({
-            error: error.message,
-        });
+        res.status(401).send({ error: error.message });
     }
 }
 
@@ -148,7 +145,7 @@ const forgotPassword = async (req, res) => {
         });
 
         await createAccessToken.save();
-        res.status(200).send({'success': 'One Time Password sent to your email address.'});
+        res.status(200).send({token});
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
@@ -202,8 +199,17 @@ const resetPassword = async (req, res) => {
 }
 
 const signOutUser = async (req, res) => {
-    req.session.destroy();
-    res.status(202).redirect("/");
+    try {
+        const getUser = await usersDb.findById(req.user._id);
+        getUser.tokens.filter(token => {
+            return token.token !== req.token;
+        });
+
+        await getUser.save();
+        res.status(200).send({success: 'logged out'});
+    } catch (e) {
+        res.status(400).send({error: e.message});
+    }
 }
 
 module.exports = Object.freeze({

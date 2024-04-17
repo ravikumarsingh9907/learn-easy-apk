@@ -1,12 +1,9 @@
 const Course = require("../models/courses");
-const customer = require("../models/users");
-const review = require("../models/reviews");
-const Category = require('../models/categories');
 const {uploadOnCloud, removeFromCloud} = require("../cloudinary");
 
 const getCourses = async (req, res) => {
     try {
-        const allCourses = await Course.find({});
+        const allCourses = await Course.find({}).populate('platform');
 
         if(!allCourses) throw new Error('No course found.')
         res.status(200).send(allCourses);

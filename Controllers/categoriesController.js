@@ -1,6 +1,5 @@
 const Categories = require("../models/categories");
 const Course = require("../models/courses");
-const fs = require('fs');
 const { uploadOnCloud, removeFromCloud } = require('../cloudinary/index');
 const getCategories = async (req, res) => {
     try {
@@ -52,7 +51,7 @@ const updateCategory = async (req, res) => {
         getCategoryById.image_id = uploadResult.public_id;
         await getCategoryById.save();
 
-        res.status(200).send({success: 'Course updated successfully.'})
+        res.status(200).send({success: 'Category updated successfully.'})
     } catch (e) {
         res.status(400).send({error: e.message});
     }

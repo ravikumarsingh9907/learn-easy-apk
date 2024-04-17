@@ -3,7 +3,7 @@ const multer = require('multer');
 const upload = multer({
     limit: 1000000,
     fileFilter(req, file, cb) {
-        if(!file.originalname.match(/\.(jpg|jpeg|png|webp)$/)) {
+        if(!file.originalname.match(/\.(jpg|jpeg|png|webp|svg)$/)) {
             return cb(new Error("Please upload jpg, jpeg, webp or png format"));
         }
 
