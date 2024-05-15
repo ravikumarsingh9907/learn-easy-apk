@@ -69,10 +69,22 @@ const deleteCategory = async (req, res) => {
             throw new Error("Couldn't delete category.");
         }
 
-        await Categories.findByIdAndDelete(id);
-        res.status(200).send({success: 'Category deleted successfully.'});
+        const deletedCategory = await Categories.findByIdAndDelete(id);
+        res.status(200).send({success: 'Category deleted successfully.', id: deletedCategory._id});
     } catch (e) {
         res.status(400).send({error: e.message});
+    }
+}
+
+const getCategoryById = async (req, res) => {
+    try {
+        const getCategory = await Categories.findById(req.params.id);
+
+        if(!getCategory) throw new Error('No categories found.')
+
+        res.status(200).send(getCategory);
+    } catch(error) {
+        res.status(400).send({error: error.message});
     }
 }
 
@@ -81,4 +93,5 @@ module.exports = Object.freeze({
     addCategory,
     updateCategory,
     deleteCategory,
+    getCategoryById,
 });

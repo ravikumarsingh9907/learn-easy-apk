@@ -27,7 +27,7 @@ const getReviews = async (req, res) => {
             .populate('course')
             .populate('user');
 
-        if(!reviews || reviews.length) throw new Error('No reviews available.');
+        if(!reviews?.length) throw new Error('No reviews available.');
 
         res.status(200).send(reviews);
     } catch (e) {

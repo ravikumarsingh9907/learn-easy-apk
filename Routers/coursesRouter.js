@@ -12,6 +12,10 @@ const {
     addCourse,
     updateCourse,
     deleteCourse,
+    addAboutCourse,
+    updateAboutCourse,
+    getAboutCourse,
+    deleteAboutCourse,
 } = require('../Controllers/coursesController');
 const auth = require('../Middlewares/auth');
 const isAdmin = require('../Middlewares/isAdmin');
@@ -22,5 +26,9 @@ Router.patch("/courses/:id", auth, isAdmin, upload.single('image'), updateCourse
 Router.delete("/courses/:id", auth, isAdmin, deleteCourse);
 Router.get("/courses/:id", getCourseById);
 Router.get("/categories/:id/courses", getCoursesByCategory);
+Router.post("/courses/:id/about-course", auth, isAdmin, addAboutCourse);
+Router.patch("/courses/:courseId/about-course/:id", auth, isAdmin, updateAboutCourse);
+Router.get("/courses/:id/about-course", getAboutCourse);
+Router.delete("/courses/:courseId/about-course/:id", deleteAboutCourse);
 
 module.exports = Router;
