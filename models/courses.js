@@ -55,9 +55,9 @@ const courseSchema = new Schema(
       type: mongoose.Types.ObjectId,
       ref: "Categories"
     },
-    average_rating: {
-      type: Number,
-      default: 0,
+    language: {
+        type: String,
+        required: true,
     }
   },
   {

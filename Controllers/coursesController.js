@@ -162,7 +162,7 @@ const addCourse = async (req, res) => {
 
         await addCourse.save();
 
-        res.status(201).send({success: 'Course added successfully.'});
+        res.status(201).send({success: 'Course added successfully.', id: addCourse._id});
     } catch (e) {
         res.status(400).send({error: e.message});
     }
