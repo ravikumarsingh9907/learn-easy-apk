@@ -13,7 +13,7 @@ const loginUser = async (req, res) => {
         }
 
         const token = generateVerificationToken();
-        const URL = `http://localhost:3300/signup/verify-user/${token}`;
+        const URL = `${process.env.API_URL}/signup/verify-user/${token}`;
 
         if(!foundUser.isVerified) {
             const Token = new accessTokensDb({
@@ -80,7 +80,7 @@ const signUpUser = async (req, res) => {
 
         await saveToken.save();
 
-        const URL = `http://localhost:3300/signup/verify-user/${token}`;
+        const URL = `${process.env.API_URL}/signup/verify-user/${token}`;
 
         await sendEmail({
             email,
