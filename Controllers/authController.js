@@ -88,7 +88,6 @@ const signUpUser = async (req, res) => {
             body: `<p>To verify your account, please <a href=${URL}>Click here.</a></p>`
         });
 
-        req.session.customer_id = savedData._id;
         res.status(201).send({ success: 'Registered, please verify your account.' });
     } catch (error) {
         res.status(400).send({ error: error.message });
