@@ -21,16 +21,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
         env:
-          DB_URL:  ${{ vars.DB_URL }}
-          CLOUD_NAME:  ${{ vars.CLOUD_NAME }}
-          CLOUD_API_KEY:  ${{ vars.CLOUD_API_KEY }}
-          CLOUD_API_SECRET:  ${{ vars.CLOUD_API_SECRET }}
-          SECRET_KEY:  ${{ vars.SECRET_KEY }}
-          GMAIL:  ${{ vars.GMAIL }}
-          G_PASS:  ${{ vars.G_PASS }}
-          WEB_TOKEN:  ${{ vars.WEB_TOKEN }}
-          API_URL:  ${{ vars.API_URL }}
+          DB_URL:  ${{ secrets.DB_URL }}
+          CLOUD_NAME:  ${{ secrets.CLOUD_NAME }}
+          CLOUD_API_KEY:  ${{ secrets.CLOUD_API_KEY }}
+          CLOUD_API_SECRET:  ${{ secrets.CLOUD_API_SECRET }}
+          SECRET_KEY:  ${{ secrets.SECRET_KEY }}
+          GMAIL:  ${{ secrets.GMAIL }}
+          G_PASS:  ${{ secrets.G_PASS }}
+          WEB_TOKEN:  ${{ secrets.WEB_TOKEN }}
+          API_URL:  ${{ secrets.API_URL }}
       - name: database-url
-        run: echo ${{ vars.DB_URL }}
+        run: echo ${{ secrets.DB_URL }}
       - name: Run application
         run: npm start
