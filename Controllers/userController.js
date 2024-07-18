@@ -9,7 +9,7 @@ const getUser = async (req, res) => {
 
         if(!findUser) throw new Error('Please Authenticate.');
 
-        res.status(200).send(findUser);
+        res.status(200).send({success: 'logged in', data: findUser});
     } catch (e) {
         res.status(400).send({ error: e.message });
     }

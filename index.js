@@ -5,6 +5,7 @@ const contactRouter = require("./Routers/contactRouter");
 const categoriesRouter = require('./Routers/categoriesRouter');
 const coursesRouter = require('./Routers/coursesRouter');
 const reviewsRouter = require('./Routers/reviewsRouter');
+const searchRouter = require("./Routers/searchRouter");
 const platformsRouter = require('./Routers/platformsRouter');
 const cors = require('cors');
 const authRouter = require('./Routers/authRouter');
@@ -24,9 +25,10 @@ app.use(authRouter);
 app.use(userRouter);
 app.use(contactRouter);
 app.use(categoriesRouter);
-app.use(coursesRouter);
+app.use(searchRouter);
 app.use(reviewsRouter);
 app.use(platformsRouter);
+app.use(coursesRouter);
 
 app.get("*", (req, res) => {
   res.status(404).send({ error: "Page Not Found" });

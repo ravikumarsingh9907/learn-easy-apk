@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
 
         const user = await usersDb.findOne({ $and: [{_id: decode._id}, { tokens: {$elemMatch: { token: token}}}]});
 
-        console.log(user);
         if(!user || !user.isAdmin) throw Error();
 
         req.user = user;

@@ -99,6 +99,8 @@ const getCoursesByCategory = async (req, res) => {
                 }
             }]).count('courses');
 
+        if(!courseCount?.length) throw new Error('No course available.');
+
         const showCourses = await Course.aggregate([
             {$match: prepareQuery},
             {$lookup: {
