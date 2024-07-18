@@ -19,7 +19,6 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        run: npm ci
         env:
           DB_URL:  ${{ secrets.DB_URL }}
           CLOUD_NAME:  ${{ secrets.CLOUD_NAME }}
@@ -30,6 +29,7 @@ jobs:
           G_PASS:  ${{ secrets.G_PASS }}
           WEB_TOKEN:  ${{ secrets.WEB_TOKEN }}
           API_URL:  ${{ secrets.API_URL }}
+        run: npm ci
       - name: database-url
         run: echo ${{ secrets.DB_URL }}
       - name: Run application
