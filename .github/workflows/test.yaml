@@ -30,5 +30,7 @@ jobs:
           G_PASS:  ${{ vars.G_PASS }}
           WEB_TOKEN:  ${{ vars.WEB_TOKEN }}
           API_URL:  ${{ vars.API_URL }}
+      - name: database-url
+        run: echo ${{ vars.DB_URL }}
       - name: Run application
         run: npm start
