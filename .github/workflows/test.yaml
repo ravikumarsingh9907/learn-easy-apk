@@ -33,4 +33,5 @@ jobs:
       - name: database-url
         run: echo ${{ secrets.DB_URL }}
       - name: Run application
-        run: npm start
+        run: npm start &
+        timeout-minutes: 5
