@@ -1,0 +1,53 @@
+name: testing caching functionality
+run-name: ${{ github.actor }} executing this workflow
+on:
+  push:
+    branches:
+      - develop
+      - '!testing'
+  pull_request:
+    branches:
+      - main
+      - develop
+      - 'develop/**'
+      - '!develop/**-testing'
+jobs:
+  server-start:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Switch to default branch codes.
+        uses: actions/checkout@v4
+
+      - name: Install node environment
+        uses: actions/setup-node
+        with:
+          node-version: 20
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-learn-easy-app-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runnes.os }}-build-
+            ${{ runner.os }}-
+
+      - if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
+        name: Cache found
+        run: echo ${{ github.actor }}
+
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: List the state of node modules
+        continue-on-error: true
+        run: npm list
+
+      - name: Install dependencies
+        run: npm run build
+
+      - name: Start server
+        run: npm start
+        timeout-minutes: 5
