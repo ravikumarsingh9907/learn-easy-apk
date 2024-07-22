@@ -33,7 +33,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runnes.os }}-build-
+            ${{ runner.os }}-build-
             ${{ runner.os }}-
 
       - if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
