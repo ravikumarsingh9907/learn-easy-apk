@@ -33,6 +33,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+          CLOUD_API_KEY: ${{ secrets.CLOUD_API_KEY }}
+          CLOUD_API_SECRET: ${{ secrets.CLOUD_API_SECRET }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          GMAIL: ${{ secrets.GMAIL }}
+          G_PASS: ${{ secrets.G_PASS }}
+          WEB_TOKEN: ${{ secrets.WEB_TOKEN }}
+          API_URL: ${{ secrets.API_URL }}
+
+      - if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
+        name: Cache found
+        run: echo ${{ github.actor }}
 
       - name: Cache node modules
         id: cache-npm
@@ -46,10 +60,6 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-
-      - if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
-        name: Cache found
-        run: echo ${{ github.actor }}
 
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: List the state of node modules
