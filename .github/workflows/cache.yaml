@@ -60,5 +60,5 @@ jobs:
         run: npm run build
 
       - name: Start server
-        run: npm start
+        run: npm start &
         timeout-minutes: 5
